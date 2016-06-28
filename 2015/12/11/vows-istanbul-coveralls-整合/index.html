@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <meta charset="utf-8">
+    
+    <title>vows istanbul coveralls 整合 | new Number(10).toString(16) new Number(254).toString(16)</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="经常逛github，会发现好多repo在readme都会有badges，看起来逼格满满。本文将会介绍其中一种表示代码覆盖率的badge—coveralls是如何生成的。
+
+上图中显示了coveralls的样式，98%表示了代码覆盖率达到98%，绿色背景表示当前覆盖率良好。
+概念介绍首先要介绍几个相关概念;1、Vows，bdd测试框架2、istanbul，代码覆盖率测试3、coveralls，代码覆">
+<meta property="og:type" content="article">
+<meta property="og:title" content="vows istanbul coveralls 整合">
+<meta property="og:url" content="http://yoursite.com/2015/12/11/vows-istanbul-coveralls-整合/index.html">
+<meta property="og:site_name" content="new Number(10).toString(16) new Number(254).toString(16)">
+<meta property="og:description" content="经常逛github，会发现好多repo在readme都会有badges，看起来逼格满满。本文将会介绍其中一种表示代码覆盖率的badge—coveralls是如何生成的。
+
+上图中显示了coveralls的样式，98%表示了代码覆盖率达到98%，绿色背景表示当前覆盖率良好。
+概念介绍首先要介绍几个相关概念;1、Vows，bdd测试框架2、istanbul，代码覆盖率测试3、coveralls，代码覆">
+<meta property="og:image" content="http://yoursite.com/images/QQ截图20151211151018.png">
+<meta property="og:updated_time" content="2016-06-24T07:02:36.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="vows istanbul coveralls 整合">
+<meta name="twitter:description" content="经常逛github，会发现好多repo在readme都会有badges，看起来逼格满满。本文将会介绍其中一种表示代码覆盖率的badge—coveralls是如何生成的。
+
+上图中显示了coveralls的样式，98%表示了代码覆盖率达到98%，绿色背景表示当前覆盖率良好。
+概念介绍首先要介绍几个相关概念;1、Vows，bdd测试框架2、istanbul，代码覆盖率测试3、coveralls，代码覆">
+<meta name="twitter:image" content="http://yoursite.com/images/QQ截图20151211151018.png">
+    
+
+    
+
+    
+        <link rel="icon" href="/favicon.png" />
+    
+
+    <link rel="stylesheet" href="/vendor/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/vendor/open-sans/styles.css">
+    <link rel="stylesheet" href="/vendor/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="/vendor/jquery/2.1.3/jquery.min.js"></script>
+    
+    
+        <link rel="stylesheet" href="/vendor/fancybox/jquery.fancybox.css">
+    
+    
+    
+    
+
+</head>
+<body>
+    <div id="container">
+        <header id="header">
+    <div id="header-main" class="header-inner">
+        <div class="outer">
+            <a href="/" id="logo">
+                <i class="logo"></i>
+                <span class="site-title">new Number(10).toString(16) new Number(254).toString(16)</span>
+            </a>
+            <nav id="main-nav">
+                
+                    <a class="main-nav-link" href="/.">Home</a>
+                
+                    <a class="main-nav-link" href="/archives">Archives</a>
+                
+                    <a class="main-nav-link" href="/tags">Tags</a>
+                
+            </nav>
+            
+                
+                <nav id="sub-nav">
+                    <div class="profile" id="profile-nav">
+                        <a id="profile-anchor" href="javascript:;">
+                            <img class="avatar" src="/css/images/avatar.png" />
+                            <i class="fa fa-caret-down"></i>
+                        </a>
+                    </div>
+                </nav>
+            
+            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="想要查找什么..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+        </div>
+    </div>
+    <div id="main-nav-mobile" class="header-sub header-inner">
+        <table class="menu outer">
+            <tr>
+                
+                    <td><a class="main-nav-link" href="/.">Home</a></td>
+                
+                    <td><a class="main-nav-link" href="/archives">Archives</a></td>
+                
+                    <td><a class="main-nav-link" href="/tags">Tags</a></td>
+                
+                <td>
+                    
+    <div class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索" />
+    </div>
+
+                </td>
+            </tr>
+        </table>
+    </div>
+</header>
+
+        <div class="outer">
+            
+                
+
+<aside id="profile">
+    <div class="inner profile-inner">
+        <div class="base-info profile-block">
+            <img id="avatar" src="/css/images/avatar.png" />
+            <h2 id="name">Yan Yu</h2>
+            <h3 id="title">FE</h3>
+            <span id="location"><i class="fa fa-map-marker"></i>PEK, China</span>
+            <a id="follow" target="_blank" href="https://github.com/yanyu0517/">关注我</a>
+        </div>
+        <div class="article-info profile-block">
+            <div class="article-info-block">
+                8
+                <span>文章</span>
+            </div>
+            <div class="article-info-block">
+                17
+                <span>标签</span>
+            </div>
+        </div>
+        
+        <div class="profile-block social-links">
+            <table>
+                <tr>
+                    
+                    
+                    <td>
+                        <a href="https://github.com/yanyu0517/" target="_blank" title="github" class=tooltip>
+                            <i class="fa fa-github"></i>
+                        </a>
+                    </td>
+                    
+                    <td>
+                        <a href="https://www.facebook.com/yu.yan.338863" target="_blank" title="facebook" class=tooltip>
+                            <i class="fa fa-facebook"></i>
+                        </a>
+                    </td>
+                    
+                </tr>
+            </table>
+        </div>
+        
+    </div>
+</aside>
+
+            
+            <section id="main"><article id="post-vows-istanbul-coveralls-整合" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+            vows istanbul coveralls 整合
+        </h1>
+    
+
+                <div class="article-meta">
+                    
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/2015/12/11/vows-istanbul-coveralls-整合/">
+            <time datetime="2015-12-11T09:50:14.000Z" itemprop="datePublished">2015-12-11</time>
+        </a>
+    </div>
+
+
+                    
+                    
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/badge/">badge</a>, <a class="tag-link" href="/tags/coverage/">coverage</a>, <a class="tag-link" href="/tags/coveralls/">coveralls</a>, <a class="tag-link" href="/tags/github/">github</a>, <a class="tag-link" href="/tags/istanbul/">istanbul</a>, <a class="tag-link" href="/tags/node/">node</a>, <a class="tag-link" href="/tags/test/">test</a>, <a class="tag-link" href="/tags/vows/">vows</a>
+    </div>
+
+                </div>
+            </header>
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            
+            <p>经常逛github，会发现好多repo在readme都会有badges，看起来逼格满满。本文将会介绍其中一种表示代码覆盖率的badge—coveralls是如何生成的。</p>
+<p><img src="/images/QQ截图20151211151018.png" alt=""></p>
+<p>上图中显示了coveralls的样式，98%表示了代码覆盖率达到98%，绿色背景表示当前覆盖率良好。</p>
+<h1 id="概念介绍"><a href="#概念介绍" class="headerlink" title="概念介绍"></a>概念介绍</h1><p>首先要介绍几个相关概念;<br>1、Vows，bdd测试框架<br>2、istanbul，代码覆盖率测试<br>3、coveralls，代码覆盖率管理</p>
+<h2 id="Vows"><a href="#Vows" class="headerlink" title="Vows"></a>Vows</h2><p>Vows是运行在node环境下的bdd(behavior driven development)测试框架。</p>
+<p>主要用来测试异步行为，能够保证执行的合理顺序。</p>
+<p><a href="http://vowsjs.org/" title="vowsjs.org" target="_blank" rel="external">http://vowsjs.org/</a></p>
+<p><a href="http://yanyu0517.github.io/2015/12/03/Vows-node中的bdd框架/" target="_blank" rel="external">http://yanyu0517.github.io/2015/12/03/Vows-node中的bdd框架/</a></p>
+<h2 id="istanbul"><a href="#istanbul" class="headerlink" title="istanbul"></a>istanbul</h2><p>istanbul是一个由js开发的代码覆盖率检查工具</p>
+<p>支持html、LCOV、Cobertura等多种格式</p>
+<p>支持命令行</p>
+<p><a href="https://github.com/gotwarlost/istanbul" target="_blank" rel="external">https://github.com/gotwarlost/istanbul</a></p>
+<h2 id="coveralls"><a href="#coveralls" class="headerlink" title="coveralls"></a>coveralls</h2><p>能够帮助你计算你GITHUB和BITBUCKET中代码仓库的代码覆盖率</p>
+<ul>
+<li>针对单个文件计算代码覆盖率</li>
+<li>定位到代码中的某一行</li>
+<li>整个账户的概况</li>
+<li>记录所有提交的代码覆盖率</li>
+<li>提醒功能</li>
+<li>在任何ci下都可以运行</li>
+</ul>
+<p><a href="https://coveralls.io/" target="_blank" rel="external">https://coveralls.io/</a></p>
+<p>coveralls提供了多种运行环境，其中node-coveralls是运行在node环境中的</p>
+<p>支持的ci服务：travis-ci, codeship, circleci, jenkins，并且支持lcov代码覆盖率报告</p>
+<p><a href="https://github.com/nickmerwin/node-coveralls" target="_blank" rel="external">https://github.com/nickmerwin/node-coveralls</a></p>
+<h1 id="工作流"><a href="#工作流" class="headerlink" title="工作流"></a>工作流</h1><p>通过上面的介绍，可以简单了解到整个工作流是如何运作的：</p>
+<p><img src="/images/QQ截图20151211154136.png" alt=""></p>
+<p>1、通过vows编写测试代码，也可以使用其他测试框架，如mocha,nodeunit等</p>
+<p>2、istanbul计算测试代码的代码覆盖率，并输出lcov格式的数据报告./coverage/lcov.info</p>
+<p>3、coveralls管理你的代码仓储，并通过ci介入istanbul输出的lcov，生成代码覆盖率分析</p>
+<h1 id="配置及整合"><a href="#配置及整合" class="headerlink" title="配置及整合"></a>配置及整合</h1><h2 id="vows配置"><a href="#vows配置" class="headerlink" title="vows配置"></a>vows配置</h2><p>vows配置没有什么特殊的要求，需要注意的一点是，vows测试结束后，一定要process exit，istanbul是监听process退出后，给出代码覆盖率，如果process一直不退出，是得不到代码覆盖率报告的。</p>
+<p>我在最开始整合istanbul和vows的时候，就遇到了这样的问题：</p>
+<p>我的测试代码中需要启动一个http server，而在vows测试结束后，并没有关闭这个server，istanbul一直无法生成代码覆盖率。</p>
+<p>此处还有一个坑爹点需要注意，vows的文档中，并没有关于如何监听case执行完毕的api，作为一个专注于异步测试的测试框架，这实在是不应该。</p>
+<p>最后我耗费了一天的时间，翻了源代码还有之前的issue，发现了teardown这个方法，是case执行完毕的回调函数，在自己的batch中实现teardown关闭server。</p>
+<h2 id="istanbul-1"><a href="#istanbul-1" class="headerlink" title="istanbul"></a>istanbul</h2><p>全局安装istanbul</p>
+<pre><code>npm install -g istanbul
+</code></pre><p>整合istanbule和vows，只要执行下面的命令即可</p>
+<pre><code>istanbul cover -v --print both -- vows --spec my-test.js
+</code></pre><p>注意，上面命令只能在linux下执行，在windows下执行会报错的，这又是一个坑爹点</p>
+<p>在windows下执行需要执行下面的命令</p>
+<pre><code>istanbul cover -v --print both -- ./node_modules/vows/bin/vows --spec test/biz-mock-test.js
+</code></pre><p>github issue：<a href="https://github.com/gotwarlost/istanbul/issues/13" target="_blank" rel="external">https://github.com/gotwarlost/istanbul/issues/13</a></p>
+<p>命令成功执行后，首先会在控制台中给出测试脚本的执行结果，随后会给出代码覆盖率，并生成代码覆盖率报告</p>
+<p>控制台中输出的代码覆盖率</p>
+<p><img src="/images/QQ截图20151211160452.png" alt=""></p>
+<p>代码覆盖报告，输出在coverage目录下</p>
+<pre><code>/coverage
+    -lcov.info //lcov数据
+    -coverage.json //覆盖率json数据
+    -lcov-report/*html //lcov html 目录
+</code></pre><p>lcov-report/*html输出的代码覆盖率</p>
+<p>整合到</p>
+<p><img src="/images/QQ截图20151211161018.png" alt=""></p>
+<h2 id="coveralls-1"><a href="#coveralls-1" class="headerlink" title="coveralls"></a>coveralls</h2><p>coveralls分为两个部分：</p>
+<ul>
+<li>网站管理</li>
+<li>接入代码覆盖率数据</li>
+</ul>
+<h3 id="网站管理"><a href="#网站管理" class="headerlink" title="网站管理"></a>网站管理</h3><p>访问<a href="https://coveralls.io/" target="_blank" rel="external">https://coveralls.io/</a></p>
+<p>直接使用GITHUB和BITBUCKET登录，授权coveralls读取账户中的repo</p>
+<p>添加repo到coveralls</p>
+<p>在coveralls网站中添加了repo中，因为没有接入代码覆盖率数据，所以仅能看到添加了的repo，而无法看到代码覆盖率</p>
+<p><img src="/images/QQ截图20151211163307.png" alt=""></p>
+<h3 id="接入代码覆盖率数据"><a href="#接入代码覆盖率数据" class="headerlink" title="接入代码覆盖率数据"></a>接入代码覆盖率数据</h3><p>如前面所述，代码覆盖率是由istanbul生成的，标准的lcov格式，放在/coverage/lcov.info中</p>
+<p>通过node-coveralls，在ci中自动读取lcov数据，并上传到coveralls网站中</p>
+<p>step1：</p>
+<p>安装node-coveralls</p>
+<pre><code>npm install coveralls --save-dev
+</code></pre><p>step2：</p>
+<p>把vows和istanbul都添加到travis ci中</p>
+<p><strong>修改package.json</strong></p>
+<p>添加测试脚本</p>
+<pre><code>&quot;scripts&quot;: {
+    &quot;test&quot;: &quot;istanbul cover -v --print both -- vows --spec test/biz-mock-test.js&quot;
+  },
+</code></pre><p><strong>修改.travis.yml</strong></p>
+<p>让ci自动执行测试脚本</p>
+<pre><code>before_script:
+  - &quot;npm install -g istanbul&quot;
+script:
+  - &quot;npm test&quot;
+</code></pre><p>step3：</p>
+<p>node-coveralls接入lcov数据</p>
+<p><strong>修改.travis.yml</strong></p>
+<pre><code>after_script:
+      - cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js
+</code></pre><h3 id="coveralls查看代码覆盖率"><a href="#coveralls查看代码覆盖率" class="headerlink" title="coveralls查看代码覆盖率"></a>coveralls查看代码覆盖率</h3><p>提交上面的配置后，travis ci会自动build，运行测试代码，生成代码覆盖率报告，并上传的到coveralls网站。在coveralls即可查看repo的代码覆盖率。</p>
+<p><img src="/images/QQ截图20151211164736.png" alt=""></p>
+<h3 id="生成coveralls覆盖率badge"><a href="#生成coveralls覆盖率badge" class="headerlink" title="生成coveralls覆盖率badge"></a>生成coveralls覆盖率badge</h3><p>coveralls会自动为每一个接入了代码覆盖率数据的repo，生成一个badge，并提供了多种文本格式的链接</p>
+<ul>
+<li>MARKDOWN</li>
+<li>TEXTILE</li>
+<li>RDOC</li>
+<li>HTML</li>
+<li>RST</li>
+</ul>
+<p><img src="/images/QQ截图20151211165109.png" alt=""></p>
+<p>在github的readme中，添加markdown的链接，即可生成覆盖率badge</p>
+
+        
+        </div>
+        <footer class="article-footer">
+            <div class="share-container">
+
+
+
+</div>
+
+    <a data-url="http://yoursite.com/2015/12/11/vows-istanbul-coveralls-整合/" data-id="ciptgjkfu0008xtlvxnmn5a4f" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+<script>
+    (function ($) {
+        // Prevent duplicate binding
+        if (typeof(__SHARE_BUTTON_BINDED__) === 'undefined' || !__SHARE_BUTTON_BINDED__) {
+            __SHARE_BUTTON_BINDED__ = true;
+        } else {
+            return;
+        }
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="fa fa-twitter article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="fa fa-facebook article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="fa fa-pinterest article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="fa fa-google article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+            
+    
+        <a href="http://yoursite.com/2015/12/11/vows-istanbul-coveralls-整合/#comments" class="article-comment-link disqus-comment-count" data-disqus-url="http://yoursite.com/2015/12/11/vows-istanbul-coveralls-整合/">评论</a>
+    
+
+        </footer>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+        <a href="/2016/01/28/Github中的badge/" id="article-nav-newer" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">上一篇</strong>
+            <div class="article-nav-title">
+                
+                    Github中的badge
+                
+            </div>
+        </a>
+    
+    
+        <a href="/2015/12/03/Vows-node中的bdd框架/" id="article-nav-older" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">下一篇</strong>
+            <div class="article-nav-title">Vows node中的BDD框架</div>
+        </a>
+    
+</nav>
+
+
+    
+</article>
+
+
+    
+    <section id="comments">
+    
+        
+    <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+
+    
+    </section>
+
+</section>
+            
+                <aside id="sidebar">
+   
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">最新文章</h3>
+        <div class="widget">
+            <ul id="recent-post" class="">
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2016/04/12/假如javascript有了一个标准库（译文）/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/images/1-CZTmVvPduBuWmnlUGAz2VQ.png)" alt="假如javascript有了一个标准库（译文）" class="thumbnail-image"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/2016/04/12/假如javascript有了一个标准库（译文）/" class="title">假如javascript有了一个标准库（译文）</a></p>
+                            <p class="item-date"><time datetime="2016-04-12T10:02:07.000Z" itemprop="datePublished">2016-04-12</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2016/02/16/IE9浏览器单个CSS文件样式数量限制的bug/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/images/blessicon.png)" alt="IE9浏览器单个CSS文件样式数量限制的bug" class="thumbnail-image"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/2016/02/16/IE9浏览器单个CSS文件样式数量限制的bug/" class="title">IE9浏览器单个CSS文件样式数量限制的bug</a></p>
+                            <p class="item-date"><time datetime="2016-02-16T09:22:11.000Z" itemprop="datePublished">2016-02-16</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2016/01/28/Github中的badge/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/images/QQ截图20160128110704.png)" alt="Github中的badge" class="thumbnail-image"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/2016/01/28/Github中的badge/" class="title">Github中的badge</a></p>
+                            <p class="item-date"><time datetime="2016-01-28T06:57:34.000Z" itemprop="datePublished">2016-01-28</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2015/12/11/vows-istanbul-coveralls-整合/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/images/QQ截图20151211151018.png)" alt="vows istanbul coveralls 整合" class="thumbnail-image"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/2015/12/11/vows-istanbul-coveralls-整合/" class="title">vows istanbul coveralls 整合</a></p>
+                            <p class="item-date"><time datetime="2015-12-11T09:50:14.000Z" itemprop="datePublished">2015-12-11</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2015/12/03/Vows-node中的bdd框架/" class="thumbnail">
+    
+    
+        <span class="thumbnail-image thumbnail-none"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/2015/12/03/Vows-node中的bdd框架/" class="title">Vows node中的BDD框架</a></p>
+                            <p class="item-date"><time datetime="2015-12-03T08:42:32.000Z" itemprop="datePublished">2015-12-03</time></p>
+                        </div>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+    
+        
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">归档</h3>
+        <div class="widget">
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">四月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">二月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">一月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">十二月 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">十一月 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">十月 2015</a><span class="archive-list-count">1</span></li></ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">标签</h3>
+        <div class="widget">
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Github/">Github</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IE浏览器/">IE浏览器</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/badge/">badge</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/coverage/">coverage</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/coveralls/">coveralls</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/css/">css</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/">github</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/istanbul/">istanbul</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/node/">node</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/test/">test</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vows/">vows</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/兼容性/">兼容性</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/包管理工具/">包管理工具</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/工作实践/">工作实践</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/测试/">测试</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/－javascript-node-es6/">－javascript - node - es6</a><span class="tag-list-count">1</span></li></ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">标签云</h3>
+        <div class="widget tagcloud">
+            <a href="/tags/Github/" style="font-size: 10px;">Github</a> <a href="/tags/IE浏览器/" style="font-size: 10px;">IE浏览器</a> <a href="/tags/badge/" style="font-size: 10px;">badge</a> <a href="/tags/coverage/" style="font-size: 10px;">coverage</a> <a href="/tags/coveralls/" style="font-size: 10px;">coveralls</a> <a href="/tags/css/" style="font-size: 20px;">css</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/istanbul/" style="font-size: 10px;">istanbul</a> <a href="/tags/js/" style="font-size: 10px;">js</a> <a href="/tags/node/" style="font-size: 20px;">node</a> <a href="/tags/test/" style="font-size: 10px;">test</a> <a href="/tags/vows/" style="font-size: 10px;">vows</a> <a href="/tags/兼容性/" style="font-size: 10px;">兼容性</a> <a href="/tags/包管理工具/" style="font-size: 10px;">包管理工具</a> <a href="/tags/工作实践/" style="font-size: 10px;">工作实践</a> <a href="/tags/测试/" style="font-size: 10px;">测试</a> <a href="/tags/－javascript-node-es6/" style="font-size: 10px;">－javascript - node - es6</a>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">链接</h3>
+        <div class="widget">
+            <ul>
+                
+                    <li>
+                        <a href="http://hexo.io">Hexo</a>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+
+    
+    <div id="toTop" class="fa fa-angle-up"></div>
+</aside>
+            
+        </div>
+        <footer id="footer">
+    <div class="outer">
+        <div id="footer-info" class="inner">
+            &copy; 2016 Yan Yu<br>
+            Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>. Theme by <a href="http://github.com/ppoffice">PPOffice</a>
+        </div>
+    </div>
+</footer>
+        
+    
+    <script>
+    var disqus_config = function () {
+        
+            this.page.url = 'http://yoursite.com/2015/12/11/vows-istanbul-coveralls-整合/';
+        
+        this.page.identifier = 'vows-istanbul-coveralls-整合';
+    };
+    (function() { 
+        var d = document, s = d.createElement('script');  
+        s.src = '//' + 'hexo-theme-icarus' + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+
+
+
+    
+        <script src="/vendor/fancybox/jquery.fancybox.pack.js"></script>
+    
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+</body>
+</html>
