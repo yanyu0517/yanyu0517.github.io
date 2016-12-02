@@ -3,12 +3,12 @@
 <head>
     <meta charset="utf-8">
     
-    <title>标签: IE浏览器 | new Number(10).toString(16) new Number(254).toString(16)</title>
+    <title>new Number(10).toString(16) new Number(254).toString(16)</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
     <meta name="description">
 <meta property="og:type" content="website">
 <meta property="og:title" content="new Number(10).toString(16) new Number(254).toString(16)">
-<meta property="og:url" content="http://yoursite.com/tags/IE浏览器/index.html">
+<meta property="og:url" content="http://yoursite.com/page/2/index.html">
 <meta property="og:site_name" content="new Number(10).toString(16) new Number(254).toString(16)">
 <meta property="og:description">
 <meta name="twitter:card" content="summary">
@@ -178,19 +178,16 @@
 
             
             <section id="main">
-<div class="timeline timeline-wrap">
-    <div class="timeline-row timeline-row-major">
-        <span class="node"><i class="fa fa-tag"></i></span>
-        <h1 class="title">#IE浏览器</h1>
-    </div>
-    
-        <div class="timeline-row">
-            <span class="node"></span>
-            <div class="content">
+    <article id="post-npm和bower的区别" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+        
+            <header class="article-header">
                 
     
         <h1 itemprop="name">
-            <a class="timeline-article-title" href="/2016/02/16/IE9浏览器单个CSS文件样式数量限制的bug/">IE9浏览器单个CSS文件样式数量限制的bug</a>
+            <a class="article-title" href="/2015/10/15/npm和bower的区别/">npm和bower的区别</a>
         </h1>
     
 
@@ -198,8 +195,8 @@
                     
     <div class="article-date">
         <i class="fa fa-calendar"></i>
-        <a href="/2016/02/16/IE9浏览器单个CSS文件样式数量限制的bug/">
-            <time datetime="2016-02-16T09:22:11.000Z" itemprop="datePublished">2016-02-16</time>
+        <a href="/2015/10/15/npm和bower的区别/">
+            <time datetime="2015-10-15T12:20:13.000Z" itemprop="datePublished">2015-10-15</time>
         </a>
     </div>
 
@@ -208,14 +205,111 @@
                     
     <div class="article-tag">
         <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/IE浏览器/">IE浏览器</a>, <a class="tag-link" href="/tags/css/">css</a>, <a class="tag-link" href="/tags/兼容性/">兼容性</a>
+        <a class="tag-link" href="/tags/包管理工具/">包管理工具</a>
     </div>
 
                 </div>
-            </div>
+            </header>
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            
+            <h2 id="npm和bower"><a href="#npm和bower" class="headerlink" title="npm和bower"></a>npm和bower</h2><p>npm和bower都是用来发布模块，管理模块依赖的平台。主要区别如下：</p>
+<ol>
+<li>管理模块的区别<br>npm主要用来管理node模块，对模块的格式是有要求的，CommonJS。而bower对模块的格式并没有严格的规定，甚至与npm有自己的模块代码存储仓库不同，bower不会存储任何模块代码，而是依赖github来管理<br>这就决定了npm主要用来管理运行在node环境中的代码，而bower可以check任何代码下来，包括amd，cmd，CommonJS等，所以bower更适合浏览器端。（此处提一下，有人认为凭借browserify，npm也能成为一个很好的浏览器端模块管理工具）</li>
+<li>管理依赖的区别<br>npm的依赖是纵深的树结构依赖，而bower是采用的扁平化结构依赖。具体来说，npm在管理依赖的时候，会为每一个模块都建立一个依赖树，每一个模块是独立的，形成了一个孤岛，依赖不会共享。当每一个模块check的时候会下载他所需要的所有依赖，如下图<br><img src="/images/QQ截图20151020152007.png" alt=""><br>可以看到，上图中的grunt-contrib-less模块的依赖结构，一颗很深的树，有时候这种依赖树甚至会超过window对于文件路径的字符串长度限制（这种反人类的设计，完全没有考虑windows用户的感受）<br>而bower对于依赖的管理，是横向的扁平化结构，每一个模块的依赖，与该模块都是平级的，也就是说，一个模块无论他的依赖多么复杂，对于bower来说，都是一层目录结构。这种结构，使得多个模块可以共享一个依赖，如下图<br><img src="/images/QQ截图20151020160219.png" alt=""><br>上图中，backbone依赖了underscore，而backbone和underscore是同层级的（同一个文件夹目录下）。不难发现，这种方式更符合浏览器端开发的静态文件目录结构。<br>那么问题来了，这种扁平化操作，如果发生了依赖冲突如何处理，怎么管理不同版本的模块呢？<br>bower给出的处理方式是给出冲突提示，并让用户去选择，下图中，我目前安装了backbone，根据backbone的bower.json中的定义，underscore的版本是1.8.3。当我要安装一个低版本underscore 1.4.1的时候，由于不符合bower.json中&gt;=1.7.0的版本定义，bower会在安装的时候给出提示<br><img src="/images/QQ截图20151020162921.png" alt=""><br>我选择了1，那么bower会安装1.4.1的版本，之前的1.8.3会删除掉。此时backbone的某些功能由于underscore版本过低是无法使用的<h2 id="关于spm"><a href="#关于spm" class="headerlink" title="关于spm"></a>关于spm</h2>阿里出的类似于npm的模块管理工具，格式是cmd格式，需要与seajs配合使用<br>目前已经基本被阿里所放弃<br>不建议使用<h2 id="component"><a href="#component" class="headerlink" title="component"></a>component</h2>首先说明，没有用过，看同事用过，没有模块代码仓库，都是直接从github上check代码<br>路径采用githubusername/project的格式，很怪异<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2>npm适合与在node环境中使用，比如build一下代码，搭个http server<br>bower更适合在浏览器端开发中使用，可以很方便的管理代码</li>
+</ol>
+
+        
         </div>
-    
+        <footer class="article-footer">
+            <div class="share-container">
+
+
+
 </div>
+
+    <a data-url="http://yoursite.com/2015/10/15/npm和bower的区别/" data-id="ciw7j7huv000cprlvm6oh74sv" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+<script>
+    (function ($) {
+        // Prevent duplicate binding
+        if (typeof(__SHARE_BUTTON_BINDED__) === 'undefined' || !__SHARE_BUTTON_BINDED__) {
+            __SHARE_BUTTON_BINDED__ = true;
+        } else {
+            return;
+        }
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="fa fa-twitter article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="fa fa-facebook article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="fa fa-pinterest article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="fa fa-google article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+            
+    
+        <a href="http://yoursite.com/2015/10/15/npm和bower的区别/#comments" class="article-comment-link disqus-comment-count" data-disqus-url="http://yoursite.com/2015/10/15/npm和bower的区别/">评论</a>
+    
+
+        </footer>
+    </div>
+    
+</article>
+
+
+
+    <nav id="page-nav">
+        <a class="extend prev" rel="prev" href="/">&laquo; 上一页</a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
+    </nav>
 </section>
             
                 <aside id="sidebar">
