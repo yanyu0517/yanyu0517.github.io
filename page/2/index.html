@@ -143,11 +143,11 @@
         </div>
         <div class="article-info profile-block">
             <div class="article-info-block">
-                11
+                12
                 <span>文章</span>
             </div>
             <div class="article-info-block">
-                25
+                31
                 <span>标签</span>
             </div>
         </div>
@@ -178,6 +178,188 @@
 
             
             <section id="main">
+    <article id="post-MockServer的一些思考" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+        
+            <header class="article-header">
+                
+    
+        <h1 itemprop="name">
+            <a class="article-title" href="/2015/11/05/MockServer的一些思考/">MockServer的一些思考</a>
+        </h1>
+    
+
+                <div class="article-meta">
+                    
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/2015/11/05/MockServer的一些思考/">
+            <time datetime="2015-11-05T08:33:55.000Z" itemprop="datePublished">2015-11-05</time>
+        </a>
+    </div>
+
+
+                    
+                    
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/工作实践/">工作实践</a>
+    </div>
+
+                </div>
+            </header>
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            
+            <p>前一阵对整个系统实施了前后端分离改造，使得前端完全脱离后端服务，通过node http server便可以启动整个系统。也正是因为完全脱离了对后端，那么就需要一个mock server来模拟数据。</p>
+<h1 id="mock数据源种类"><a href="#mock数据源种类" class="headerlink" title="mock数据源种类"></a>mock数据源种类</h1><p>mock server纯粹来看，就是能够为指定接口提供数据（无论这个数据时模拟的随机数据或者是真实的接口数据），那么最主要需要考虑的就是，mock server中的数据是从何方取得的。</p>
+<p>之前系统中的mock server是通过一个struts的filter来实现的，在filter中拦截所有.action的请求，根据action名称，查询对应的mock数据，静态文件是以.json结尾的json格式文件。</p>
+<p>现在前后端分离后，由于不需要后端服务，所以必然这个filter也无法使用，但是前期积累的mock数据json文件可以为新的mock server服务，这就行程了我们第一个mock数据源，静态文件数据源</p>
+<p>有了上面的静态文件，如果静态文件足够丰富并且有相应的数据更新同步机制，那么其实已经可以满足对mock数据的要求了。但正是因为静态文件是由人工维护，也就是说是由开发人员逐一建立和更新的，所以并不完美。那么问题来了，我们需要什么样的数据源呢？</p>
+<p><img src="/images/mockdata.png" alt=""></p>
+<p>1.稳定，随时可以调用</p>
+<p>2.完备，匹配各种action</p>
+<p>3.正确，数据合理，符合业务逻辑</p>
+<p>除了上面提到的静态文件数据源，还有其他数据源可供选择</p>
+<p><strong>随机数据源</strong>，由mock模板生成的随机数据。符合稳定、完备，但是并不正确</p>
+<p><strong>qa环境数据源</strong>，由公司qa维护的数据源，主要用于qa测试使用。这类数据从理论上应该是相对完备，并且符合逻辑。但仅仅是从理论上来讲，起码本司的qa环境长期没有数据，更何况还有好多小公司没有qa。。。。。符合正确，但是并不稳定和完备。不过使用qa环境数据源能够复现qa环境bug。</p>
+<p><strong>生产环境（线上）数据源</strong>，直接请求线上接口，获得的数据符合了上述3点（如果不符合的话，程序员就要倒霉了，线上故障啊）</p>
+<h1 id="如何获得mock数据源"><a href="#如何获得mock数据源" class="headerlink" title="如何获得mock数据源"></a>如何获得mock数据源</h1><p>1.静态文件数据源</p>
+<p>如之前介绍，静态文件数据源可以使用之前积累的静态文件数据，只要适配静态文件数据格式即可。<br>随着系统功能越来越复杂，接口增多，毕然导致静态文件数据原来越多，可维护性越来越来差，依靠人工创建、更新，可靠性也无法保证。</p>
+<p>针对上述的问题，可以把人工维护静态文件的工作转托给静态数据更新服务来执行，每次mock请求后（或者定时）对静态文件做更新。</p>
+<p><img src="/images/QQ截图20151105152057.png" alt=""></p>
+<p>2.随机数据源</p>
+<p>根据模板随机产生json或者jsonp数据，可以直接在浏览器中运行生成随机数据，或者在node端生成随机数据。</p>
+<p>mockJson </p>
+<p><a href="http://experiments.mennovanslooten.nl/2010/mockjson" target="_blank" rel="external">http://experiments.mennovanslooten.nl/2010/mockjson</a></p>
+<p><img src="/images/QQ截图20151105152755.png" alt=""></p>
+<p>mock.js</p>
+<p><a href="http://mockjs.com/" target="_blank" rel="external">http://mockjs.com/</a></p>
+<p><img src="/images/QQ截图20151105152933.png" alt=""></p>
+<p>3.qa环境数据源</p>
+<p>qa环境数据源即直接访问qa环境接口，模拟登陆之后直接访问即可</p>
+<p>此处由于我们的统一用户中心没有对外提供直接登录接口，导致不得不一步一步去模拟登陆，浪费了好多时间。因为涉及到系统安全问题（其实注册个账号，有点耐心，自己也是能拔出来的），具体如何实现就不表述了，每家公司的也都不同，不具有通用性</p>
+<p>4.生产环境（线上）数据源</p>
+<p>生产环境（线上）数据源即直接访问线上接口，因为真实环境中，实施登陆是需要判断验证码的，因此如果想实现自动化登陆，那么就需要对验证码图片做图像处理和分析，有点蛋疼。其实如果直接使用cookie，就可以绕过登陆，请求线上接口数据</p>
+<p>具体步骤：</p>
+<p>1）首先登陆线上系统</p>
+<p>2）随便找一个action，复制其中的cookie</p>
+<p>3）在mockserver中为生产环境（线上）数据源配置cookie</p>
+<p>4）访问action即可</p>
+<h1 id="mock数据源组合使用"><a href="#mock数据源组合使用" class="headerlink" title="mock数据源组合使用"></a>mock数据源组合使用</h1><p>首先对上面这4种数据源排列一个优先级</p>
+<p>生产环境（线上）数据源 &gt; qa环境数据源 &gt; 静态文件 &gt; 随机数据源</p>
+<p>数据源可单独使用，可混合使用</p>
+<p>在真实使用中，由于随机数据源的随机性太大，只能舍弃不用</p>
+<p>根据我们开发的需求，经过反复的尝试，最后我们设置了三种数据源的组合方法，</p>
+<p>0指使用本地静态数据源,即便是enable=false</p>
+<p>1指使用如下环境数据源，</p>
+<p>2指优先使用本地静态数据源中enabled=true的数据, 如果enabled=false,那么去获取如下环境数据源</p>
+<p>在方法1和方法2中，环境数据包括qa环境和线上环境</p>
+<h1 id="系统搭建"><a href="#系统搭建" class="headerlink" title="系统搭建"></a>系统搭建</h1><p>基础环境：node</p>
+<p>web框架：express</p>
+<p>mockserver自身是用不到express的，只是作为spa后端应用的一部分存在</p>
+<p>在express中，对’/*.action’过滤，根据配置，返回结果指向不同数据源</p>
+<p>系统架构图如下：</p>
+<p><img src="/images/QQ截图20151105175635.png" alt=""></p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>优点：</p>
+<p>1.不需要改动任何代码，对开发人员无感知</p>
+<p>2.能够提供多种数据源</p>
+<p>3.node服务不依赖后端</p>
+<p>缺点:</p>
+<p>1.被整合在spa后端应用中，作为http代理的效果更佳，可以单独部署</p>
+<p>2.对上传和下载这种form表单提交的action没有做处理</p>
+<p>3.在qa环境中，有的action返回系统忙碌，需要与后端一起排查问题</p>
+
+        
+        </div>
+        <footer class="article-footer">
+            <div class="share-container">
+
+
+
+</div>
+
+    <a data-url="http://yoursite.com/2015/11/05/MockServer的一些思考/" data-id="ciwdfs55h0007z7lv19q4bxom" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+<script>
+    (function ($) {
+        // Prevent duplicate binding
+        if (typeof(__SHARE_BUTTON_BINDED__) === 'undefined' || !__SHARE_BUTTON_BINDED__) {
+            __SHARE_BUTTON_BINDED__ = true;
+        } else {
+            return;
+        }
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="fa fa-twitter article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="fa fa-facebook article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="fa fa-pinterest article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="fa fa-google article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+            
+    
+        <a href="http://yoursite.com/2015/11/05/MockServer的一些思考/#comments" class="article-comment-link disqus-comment-count" data-disqus-url="http://yoursite.com/2015/11/05/MockServer的一些思考/">评论</a>
+    
+
+        </footer>
+    </div>
+    
+</article>
+
+
+
     <article id="post-npm和bower的区别" class="article article-type-post" itemscope itemprop="blogPost">
     <div class="article-inner">
         
@@ -229,7 +411,7 @@
 
 </div>
 
-    <a data-url="http://yoursite.com/2015/10/15/npm和bower的区别/" data-id="ciw7j7huv000cprlvm6oh74sv" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+    <a data-url="http://yoursite.com/2015/10/15/npm和bower的区别/" data-id="ciwdfs55v000dz7lveqb2rjm1" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -323,6 +505,25 @@
                     <li>
                         
                         <div class="item-thumbnail">
+                            <a href="/2016/12/06/JavaScript-2016-调查-—-前端框架/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/images/frall.png)" alt="JavaScript 2016 调查 — 前端框架" class="thumbnail-image"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/2016/12/06/JavaScript-2016-调查-—-前端框架/" class="title">JavaScript 2016 调查 — 前端框架</a></p>
+                            <p class="item-date"><time datetime="2016-12-06T11:33:11.000Z" itemprop="datePublished">2016-12-06</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
                             <a href="/2016/12/02/JavaScript-2016-调查-—-JavaScript语言规范/" class="thumbnail">
     
     
@@ -396,25 +597,6 @@
                         </div>
                     </li>
                 
-                    <li>
-                        
-                        <div class="item-thumbnail">
-                            <a href="/2016/02/16/IE9浏览器单个CSS文件样式数量限制的bug/" class="thumbnail">
-    
-    
-        <span style="background-image:url(/images/blessicon.png)" alt="IE9浏览器单个CSS文件样式数量限制的bug" class="thumbnail-image"></span>
-    
-</a>
-
-                        </div>
-                        
-                        <div class="item-inner">
-                            <p class="item-category"></p>
-                            <p class="item-title"><a href="/2016/02/16/IE9浏览器单个CSS文件样式数量限制的bug/" class="title">IE9浏览器单个CSS文件样式数量限制的bug</a></p>
-                            <p class="item-date"><time datetime="2016-02-16T09:22:11.000Z" itemprop="datePublished">2016-02-16</time></p>
-                        </div>
-                    </li>
-                
             </ul>
         </div>
     </div>
@@ -426,7 +608,7 @@
     <div class="widget-wrap">
         <h3 class="widget-title">归档</h3>
         <div class="widget">
-            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">十二月 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">九月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">四月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">二月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">一月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">十二月 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">十一月 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">十月 2015</a><span class="archive-list-count">1</span></li></ul>
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">十二月 2016</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">九月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">四月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">二月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">一月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">十二月 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">十一月 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">十月 2015</a><span class="archive-list-count">1</span></li></ul>
         </div>
     </div>
 
@@ -435,7 +617,7 @@
     <div class="widget-wrap">
         <h3 class="widget-title">标签</h3>
         <div class="widget">
-            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/ES6/">ES6</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Github/">Github</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IE浏览器/">IE浏览器</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript-2016/">JavaScript 2016</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TypeScript/">TypeScript</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/badge/">badge</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/coverage/">coverage</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/coveralls/">coveralls</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/css/">css</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gitflow/">gitflow</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/">github</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github-flow/">github flow</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gitlab/">gitlab</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/istanbul/">istanbul</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/node/">node</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/test/">test</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vows/">vows</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/兼容性/">兼容性</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/包管理工具/">包管理工具</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/工作实践/">工作实践</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/测试/">测试</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/语言规范/">语言规范</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/－javascript-node-es6/">－javascript - node - es6</a><span class="tag-list-count">1</span></li></ul>
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Angular/">Angular</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Angular2/">Angular2</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ES6/">ES6</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Github/">Github</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IE浏览器/">IE浏览器</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript-2016/">JavaScript 2016</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/React/">React</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TypeScript/">TypeScript</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Vue/">Vue</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Vue2/">Vue2</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/badge/">badge</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/coverage/">coverage</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/coveralls/">coveralls</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/css/">css</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gitflow/">gitflow</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/">github</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github-flow/">github flow</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gitlab/">gitlab</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/istanbul/">istanbul</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/node/">node</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/test/">test</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vows/">vows</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/兼容性/">兼容性</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/前端框架/">前端框架</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/包管理工具/">包管理工具</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/工作实践/">工作实践</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/测试/">测试</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/语言规范/">语言规范</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/－javascript-node-es6/">－javascript - node - es6</a><span class="tag-list-count">1</span></li></ul>
         </div>
     </div>
 
@@ -444,7 +626,7 @@
     <div class="widget-wrap">
         <h3 class="widget-title">标签云</h3>
         <div class="widget tagcloud">
-            <a href="/tags/ES6/" style="font-size: 10px;">ES6</a> <a href="/tags/Github/" style="font-size: 10px;">Github</a> <a href="/tags/IE浏览器/" style="font-size: 10px;">IE浏览器</a> <a href="/tags/JavaScript-2016/" style="font-size: 20px;">JavaScript 2016</a> <a href="/tags/TypeScript/" style="font-size: 10px;">TypeScript</a> <a href="/tags/badge/" style="font-size: 10px;">badge</a> <a href="/tags/coverage/" style="font-size: 10px;">coverage</a> <a href="/tags/coveralls/" style="font-size: 10px;">coveralls</a> <a href="/tags/css/" style="font-size: 20px;">css</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/gitflow/" style="font-size: 10px;">gitflow</a> <a href="/tags/github/" style="font-size: 20px;">github</a> <a href="/tags/github-flow/" style="font-size: 10px;">github flow</a> <a href="/tags/gitlab/" style="font-size: 10px;">gitlab</a> <a href="/tags/istanbul/" style="font-size: 10px;">istanbul</a> <a href="/tags/js/" style="font-size: 10px;">js</a> <a href="/tags/node/" style="font-size: 20px;">node</a> <a href="/tags/test/" style="font-size: 10px;">test</a> <a href="/tags/vows/" style="font-size: 10px;">vows</a> <a href="/tags/兼容性/" style="font-size: 10px;">兼容性</a> <a href="/tags/包管理工具/" style="font-size: 10px;">包管理工具</a> <a href="/tags/工作实践/" style="font-size: 10px;">工作实践</a> <a href="/tags/测试/" style="font-size: 10px;">测试</a> <a href="/tags/语言规范/" style="font-size: 10px;">语言规范</a> <a href="/tags/－javascript-node-es6/" style="font-size: 10px;">－javascript - node - es6</a>
+            <a href="/tags/Angular/" style="font-size: 10px;">Angular</a> <a href="/tags/Angular2/" style="font-size: 10px;">Angular2</a> <a href="/tags/ES6/" style="font-size: 10px;">ES6</a> <a href="/tags/Github/" style="font-size: 10px;">Github</a> <a href="/tags/IE浏览器/" style="font-size: 10px;">IE浏览器</a> <a href="/tags/JavaScript-2016/" style="font-size: 20px;">JavaScript 2016</a> <a href="/tags/React/" style="font-size: 10px;">React</a> <a href="/tags/TypeScript/" style="font-size: 10px;">TypeScript</a> <a href="/tags/Vue/" style="font-size: 10px;">Vue</a> <a href="/tags/Vue2/" style="font-size: 10px;">Vue2</a> <a href="/tags/badge/" style="font-size: 10px;">badge</a> <a href="/tags/coverage/" style="font-size: 10px;">coverage</a> <a href="/tags/coveralls/" style="font-size: 10px;">coveralls</a> <a href="/tags/css/" style="font-size: 15px;">css</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/gitflow/" style="font-size: 10px;">gitflow</a> <a href="/tags/github/" style="font-size: 15px;">github</a> <a href="/tags/github-flow/" style="font-size: 10px;">github flow</a> <a href="/tags/gitlab/" style="font-size: 10px;">gitlab</a> <a href="/tags/istanbul/" style="font-size: 10px;">istanbul</a> <a href="/tags/js/" style="font-size: 10px;">js</a> <a href="/tags/node/" style="font-size: 15px;">node</a> <a href="/tags/test/" style="font-size: 10px;">test</a> <a href="/tags/vows/" style="font-size: 10px;">vows</a> <a href="/tags/兼容性/" style="font-size: 10px;">兼容性</a> <a href="/tags/前端框架/" style="font-size: 10px;">前端框架</a> <a href="/tags/包管理工具/" style="font-size: 10px;">包管理工具</a> <a href="/tags/工作实践/" style="font-size: 10px;">工作实践</a> <a href="/tags/测试/" style="font-size: 10px;">测试</a> <a href="/tags/语言规范/" style="font-size: 10px;">语言规范</a> <a href="/tags/－javascript-node-es6/" style="font-size: 10px;">－javascript - node - es6</a>
         </div>
     </div>
 
