@@ -143,7 +143,7 @@
         </div>
         <div class="article-info profile-block">
             <div class="article-info-block">
-                12
+                13
                 <span>文章</span>
             </div>
             <div class="article-info-block">
@@ -178,6 +178,163 @@
 
             
             <section id="main">
+    <article id="post-JavaScript-2016-调查-—-状态管理工具" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+        
+            <header class="article-header">
+                
+    
+        <h1 itemprop="name">
+            <a class="article-title" href="/2016/12/07/JavaScript-2016-调查-—-状态管理工具/">JavaScript 2016 调查 — 状态管理工具</a>
+        </h1>
+    
+
+                <div class="article-meta">
+                    
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/2016/12/07/JavaScript-2016-调查-—-状态管理工具/">
+            <time datetime="2016-12-07T10:30:24.000Z" itemprop="datePublished">2016-12-07</time>
+        </a>
+    </div>
+
+
+                    
+                    
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/JavaScript-2016/">JavaScript 2016</a>
+    </div>
+
+                </div>
+            </header>
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            
+            <p><a href="https://en.wiktionary.org/wiki/TL;DR" target="_blank" rel="external">TL;DR</a></p>
+<blockquote>
+<p>Redux登顶<br>状态管理工具仍然在不断发展</p>
+</blockquote>
+<h1 id="1-状态管理工具调查结果"><a href="#1-状态管理工具调查结果" class="headerlink" title="1 状态管理工具调查结果"></a>1 状态管理工具调查结果</h1><p><strong>认知</strong></p>
+<p>状态管理在JavaScript中是一个新兴的领域，并不是每一个开发人员都需要使用状态管理工具。</p>
+<p><img src="/images/small.png" alt=""></p>
+<p>如上图，<a href="http://redux.js.org/" target="_blank" rel="external">Redux</a>毫无争议是最流行的状态管理工具，是Flux的一种实现，由facebook开发的用来管理React或者其他前端框架的全局状态的工具。87%的用户听说过Redux，这很让人难以置信，毕竟Redux才出了一年，并且Flux还有需要其他实现。</p>
+<p>除了Redux之外的，最成熟的框架是<a href="https://mobxjs.github.io/mobx/" target="_blank" rel="external">mobx</a>也仅有30%的认知度。</p>
+<p><strong>兴趣</strong></p>
+<p><img src="/images/smInterest.png" alt=""></p>
+<p>如上图，开发者对这些状态管理工具都很感兴趣，尤其是Redux，87%的开发者听说过并且想去学习他。鉴于这些状态管理工具两年前还没有出现，这显然是一个快速发展的领域。</p>
+<p>开发者对于Redux表现出了极大的兴趣，这给了Redux作者Dan Abramov很大的压力。Dan Abramov认为Redux不是必须的，只有在遇到问题的时候才应该引入Redux，详细可以查看<a href="https://medium.com/@dan_abramov/you-might-not-need-redux-be46360cf367#.hm1h7kmdk" target="_blank" rel="external">not every app needs it</a>。</p>
+<p><strong>满意度</strong></p>
+<p><img src="/images/smSatisfaction.png" alt=""></p>
+<p>如上图，总体来讲Redux的开发者满意度最高，MobX和<a href="https://facebook.github.io/relay/" target="_blank" rel="external">Replay</a>满意度中等。我们期待在后续能看到其他竞争者的出现。</p>
+<p>如果过一段时间再做调查，在满意度方面出现了一枝独秀的情况，这也不会让人感到惊奇。</p>
+<p><img src="/images/smother.png" alt=""></p>
+<p>如上面的热力图，如我们的语气，Redux与React及React相关的框架搭配使用最多，如React自身、Webpack、Enzyme以及React Native等等。</p>
+<p>Mobx与Redux的分布一致，只是相关度更低一些。</p>
+<p><strong>推荐资源</strong></p>
+<p><a href="https://egghead.io/courses/getting-started-with-redux?utm_source=stateofjs&amp;utm_medium=sponsor&amp;utm_campaign=statemanagement&amp;utm_content=textlink" target="_blank" rel="external">Getting Started with Redux</a>，Redux入门</p>
+<p><a href="https://egghead.io/courses/manage-complex-state-in-react-apps-with-mobx?utm_source=stateofjs&amp;utm_medium=sponsor&amp;utm_campaign=statemanagement&amp;utm_content=textlink" target="_blank" rel="external">Manage Complex State in React Apps with MobX</a>，在React应用中使用MobX管理复杂状态</p>
+<h1 id="2-其他状态管理工具的调查结果"><a href="#2-其他状态管理工具的调查结果" class="headerlink" title="2 其他状态管理工具的调查结果"></a>2 其他状态管理工具的调查结果</h1><p><img src="/images/smmentions.png" alt=""></p>
+<p>如上图，也许并没有出乎大家的意料，有很多状态管理工具在被使用，其中过半的工具是Flux的实现。然而使用这些工具的开发者人数太低了，Redux已经成为了Flux实现的赢者。另一部分非Flux实现的工具，都是与特定框架绑定使用的，如<a href="https://vuex.vuejs.org/en/index.html" target="_blank" rel="external">Vuex</a>。</p>
+<p><a href="http://reactivex.io/rxjs/" target="_blank" rel="external">RxJS</a>、<a href="http://elm-lang.org/" target="_blank" rel="external">Elm</a>和<a href="https://cycle.js.org/" target="_blank" rel="external">CycleJS</a>出现在调查榜单是可能是因为开发者觉得他们有趣或者有发展潜力，但是过低的使用人数阻止了他们的发展和扩散。</p>
+<h1 id="3-对状态管理工具的满意程度"><a href="#3-对状态管理工具的满意程度" class="headerlink" title="3 对状态管理工具的满意程度"></a>3 对状态管理工具的满意程度</h1><p>用1-5这5个数字来为你当前使用的状态管理工具来打分。</p>
+<p><img src="/images/sm1-5.png" alt=""></p>
+<p>有趣的是，即使Redux占有绝对优势并且有很高的满意度，但是总体来说用户对自己在使用的状态管理工具并不是很满意，平均得分在3.19，是本次调查中的最低分了。</p>
+<p>有可能是因为一些开发者认为Redux需要与React绑定使用，而其实Redux是可以脱离React生态单独使用的。不管怎么说，满意度是否会与使用Redux以及其他工具的人数成正比，这将会是很有趣的结果。</p>
+<h1 id="4-结论"><a href="#4-结论" class="headerlink" title="4 结论"></a>4 结论</h1><p>状态管理工具是一个很有趣的领域，我个人认为调查结果并不能很好的说明当前状态管理工具的现状，我们仍然需要继续调查来丰富我们的揭露。基于我们得到的数据，大部分工具是基于Redux的。</p>
+<p>实际上<a href="http://apollostack.com/" target="_blank" rel="external">Apollo</a>（<a href="http://meteor.com/" target="_blank" rel="external">Meteor</a>中使用的跨平台GraphQL客户端）的状态管理工具，也是直接在Redux Store上构建的。</p>
+<p>Redux周边的工具越来越丰富，如提示工具、开发者工具和继承工具等，这会让我们把Redux加入到Apollo更加容易。我认为越来越多的人会遵循这中在Redux上构建的模式。</p>
+
+        
+        </div>
+        <footer class="article-footer">
+            <div class="share-container">
+
+
+
+</div>
+
+    <a data-url="http://yoursite.com/2016/12/07/JavaScript-2016-调查-—-状态管理工具/" data-id="ciwg1aqu80008fblvste962ep" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+<script>
+    (function ($) {
+        // Prevent duplicate binding
+        if (typeof(__SHARE_BUTTON_BINDED__) === 'undefined' || !__SHARE_BUTTON_BINDED__) {
+            __SHARE_BUTTON_BINDED__ = true;
+        } else {
+            return;
+        }
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="fa fa-twitter article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="fa fa-facebook article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="fa fa-pinterest article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="fa fa-google article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+            
+    
+        <a href="http://yoursite.com/2016/12/07/JavaScript-2016-调查-—-状态管理工具/#comments" class="article-comment-link disqus-comment-count" data-disqus-url="http://yoursite.com/2016/12/07/JavaScript-2016-调查-—-状态管理工具/">评论</a>
+    
+
+        </footer>
+    </div>
+    
+</article>
+
+
+
     <article id="post-JavaScript-2016-调查-—-前端框架" class="article article-type-post" itemscope itemprop="blogPost">
     <div class="article-inner">
         
@@ -259,7 +416,7 @@
 
 </div>
 
-    <a data-url="http://yoursite.com/2016/12/06/JavaScript-2016-调查-—-前端框架/" data-id="ciwdfvefh000e8alviueovqx4" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+    <a data-url="http://yoursite.com/2016/12/06/JavaScript-2016-调查-—-前端框架/" data-id="ciwg1aqu40005fblvhldajggj" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -413,7 +570,7 @@
 
 </div>
 
-    <a data-url="http://yoursite.com/2016/12/02/JavaScript-2016-调查-—-JavaScript语言规范/" data-id="ciwdfvef100068alvvkwwq47c" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+    <a data-url="http://yoursite.com/2016/12/02/JavaScript-2016-调查-—-JavaScript语言规范/" data-id="ciwg1aqtr0001fblvfgeistb4" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -560,7 +717,7 @@
 
 </div>
 
-    <a data-url="http://yoursite.com/2016/12/02/JavaScript-2016-调查-——-介绍/" data-id="ciwdfvef300078alvcrwcaoa9" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+    <a data-url="http://yoursite.com/2016/12/02/JavaScript-2016-调查-——-介绍/" data-id="ciwg1aqu60007fblvyyyjhom5" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -726,7 +883,7 @@
 
 </div>
 
-    <a data-url="http://yoursite.com/2016/09/30/Git-Flow-vs-Github-Flow/" data-id="ciwdfveep00028alvhtnix4bf" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+    <a data-url="http://yoursite.com/2016/09/30/Git-Flow-vs-Github-Flow/" data-id="ciwg1aquf000dfblvndu9vmfz" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -852,7 +1009,7 @@
 
 </div>
 
-    <a data-url="http://yoursite.com/2016/04/12/假如javascript有了一个标准库（译文）/" data-id="ciwdfvefe000b8alvwa0hubk8" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+    <a data-url="http://yoursite.com/2016/04/12/假如javascript有了一个标准库（译文）/" data-id="ciwg1aqus000jfblvew0by8cw" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -999,7 +1156,7 @@
 
 </div>
 
-    <a data-url="http://yoursite.com/2016/02/16/IE9浏览器单个CSS文件样式数量限制的bug/" data-id="ciwdfvefl000h8alv3ph1u0jz" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+    <a data-url="http://yoursite.com/2016/02/16/IE9浏览器单个CSS文件样式数量限制的bug/" data-id="ciwg1aqu30004fblvmwsggiwt" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -1167,7 +1324,7 @@
 
 </div>
 
-    <a data-url="http://yoursite.com/2016/01/28/Github中的badge/" data-id="ciwdfveet00048alvpujy1r7q" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+    <a data-url="http://yoursite.com/2016/01/28/Github中的badge/" data-id="ciwg1aquj000efblv1yvfzcwn" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -1390,7 +1547,7 @@ script:
 
 </div>
 
-    <a data-url="http://yoursite.com/2015/12/11/vows-istanbul-coveralls-整合/" data-id="ciwdfvefj000g8alv9xbt9yh7" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+    <a data-url="http://yoursite.com/2015/12/11/vows-istanbul-coveralls-整合/" data-id="ciwg1aquu000lfblvdt77116w" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -2060,7 +2217,7 @@ assert.doesNotThrow(function () { 1 + 1 }, Error);
 
 </div>
 
-    <a data-url="http://yoursite.com/2015/12/03/Vows-node中的bdd框架/" data-id="ciwdfvefg000d8alvhaa73qy5" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+    <a data-url="http://yoursite.com/2015/12/03/Vows-node中的bdd框架/" data-id="ciwg1aquo000gfblvrtx4s3ts" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -2138,208 +2295,6 @@ assert.doesNotThrow(function () { 1 + 1 }, Error);
 
 
 
-    <article id="post-前端奇技淫巧-持续更新中" class="article article-type-post" itemscope itemprop="blogPost">
-    <div class="article-inner">
-        
-        
-        
-            <header class="article-header">
-                
-    
-        <h1 itemprop="name">
-            <a class="article-title" href="/2015/11/09/前端奇技淫巧-持续更新中/">前端奇技淫巧(持续更新中)</a>
-        </h1>
-    
-
-                <div class="article-meta">
-                    
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/2015/11/09/前端奇技淫巧-持续更新中/">
-            <time datetime="2015-11-09T08:43:44.000Z" itemprop="datePublished">2015-11-09</time>
-        </a>
-    </div>
-
-
-                    
-                    
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/css/">css</a>, <a class="tag-link" href="/tags/js/">js</a>
-    </div>
-
-                </div>
-            </header>
-        
-        <div class="article-entry" itemprop="articleBody">
-        
-            
-            <h1 id="js"><a href="#js" class="headerlink" title="js"></a>js</h1><h2 id="日期转数值"><a href="#日期转数值" class="headerlink" title="日期转数值"></a>日期转数值</h2><pre><code>var d = +new Date(); 
-</code></pre><h2 id="类数组对象转数组"><a href="#类数组对象转数组" class="headerlink" title="类数组对象转数组"></a>类数组对象转数组</h2><pre><code>var arr = [].slice.call(arguments)
-</code></pre><h2 id="交换值"><a href="#交换值" class="headerlink" title="交换值"></a>交换值</h2><pre><code>a= [b, b=a][0];
-</code></pre><h2 id="快速取数组最大和最小值"><a href="#快速取数组最大和最小值" class="headerlink" title="快速取数组最大和最小值"></a>快速取数组最大和最小值</h2><pre><code>Math.max.apply(Math, [1,2,3]) //3
-Math.min.apply(Math, [1,2,3]) //1
-</code></pre><h2 id="条件判断"><a href="#条件判断" class="headerlink" title="条件判断"></a>条件判断</h2><pre><code>var a = b &amp;&amp; 1;
-//相当于
-if (b) {
- a = 1;
-} else {
- a = b;
-}
-
-var a = b || 1;
-//相当于
-if (b) {
- a = b;
-} else {
- a = 1;
-}
-</code></pre><h2 id="位运算符实现开关"><a href="#位运算符实现开关" class="headerlink" title="位运算符实现开关"></a>位运算符实现开关</h2><pre><code>var toggle;
-toggle ^= 1; // toggle = 1
-toggle ^= 1; // toggle = 0
-toggle ^= 1; // toggle = 1
-</code></pre><h2 id="位运算符立即执行匿名函数"><a href="#位运算符立即执行匿名函数" class="headerlink" title="位运算符立即执行匿名函数"></a>位运算符立即执行匿名函数</h2><pre><code>~function(){}()
-等价于
-(function(){})()
-</code></pre><h2 id="生成中一定范围内的随机数"><a href="#生成中一定范围内的随机数" class="headerlink" title="生成中一定范围内的随机数"></a>生成中一定范围内的随机数</h2><pre><code>return Math.floor(Math.random() * (max - min + 1)) + min;
-</code></pre><h2 id="生成从0到指定值的数字数组"><a href="#生成从0到指定值的数字数组" class="headerlink" title="生成从0到指定值的数字数组"></a>生成从0到指定值的数字数组</h2><pre><code>function numbersArray(max) {
-    var numbersArray = [];
-    for( var i=1; numbersArray.push(i++) &lt; max;);
-    return numbersArray
-}
-</code></pre><h2 id="生成随机的字母数字"><a href="#生成随机的字母数字" class="headerlink" title="生成随机的字母数字"></a>生成随机的字母数字</h2><pre><code>function generateRandomAlphaNum(len) {
-    var rdmString = &quot;&quot;;
-    for( ; rdmString.length &lt; len; rdmString  += Math.random().toString(36).substr(2));
-    return  rdmString.substr(0, len);
-}
-</code></pre><h2 id="去空格"><a href="#去空格" class="headerlink" title="去空格"></a>去空格</h2><pre><code>String.prototype.trim = function(){
-    return this.replace(/^\s+|\s+$/g, &quot;&quot;);
-};
-</code></pre><h2 id="数组合并"><a href="#数组合并" class="headerlink" title="数组合并"></a>数组合并</h2><pre><code>var array1 = [12 , &quot;foo&quot; , {name &quot;Joe&quot;} , -2458];
-var array2 = [&quot;Doe&quot; , 555 , 100];
-Array.prototype.push.apply(array1, array2);
-/* array1 值为  [12 , &quot;foo&quot; , {name &quot;Joe&quot;} , -2458 , &quot;Doe&quot; , 555 , 100] */
-</code></pre><h2 id="验证是否为数字"><a href="#验证是否为数字" class="headerlink" title="验证是否为数字"></a>验证是否为数字</h2><pre><code>function isNumber(n){
-    return !isNaN(parseFloat(n)) &amp;&amp; isFinite(n);
-}
-</code></pre><h2 id="验证是否为数组"><a href="#验证是否为数组" class="headerlink" title="验证是否为数组"></a>验证是否为数组</h2><pre><code>function isArray(obj){
-    return Object.prototype.toString.call(obj) === &apos;[object Array]&apos; ;
-}
-</code></pre><h2 id="逗号操作符"><a href="#逗号操作符" class="headerlink" title="逗号操作符"></a>逗号操作符</h2><pre><code>var a = 0; var b = ( a++, 99 ); console.log(a); // a will be equal to 1 
-console.log(b); // b is equal to 99
-</code></pre><h2 id="for循环性能提升"><a href="#for循环性能提升" class="headerlink" title="for循环性能提升"></a>for循环性能提升</h2><pre><code>for (var i = 0, len = arrayNumbers.length; i &lt; len; i++) {  
-</code></pre><p>比</p>
-<pre><code>for (var i = 0; i &lt; arrayNumbers.length; i++)
-</code></pre><p>因为第一种，i和len都只在循环开始的时候声明一次</p>
-<h2 id="switch的另类写法"><a href="#switch的另类写法" class="headerlink" title="switch的另类写法"></a>switch的另类写法</h2><pre><code>function getCategory(age) {  
-    var category = &quot;&quot;;  
-    switch (true) {  
-        case isNaN(age):  
-            category = &quot;not an age&quot;;  
-            break;  
-        case (age &gt;= 50):  
-            category = &quot;Old&quot;;  
-            break;  
-        case (age &lt;= 20):  
-            category = &quot;Baby&quot;;  
-            break;  
-        default:  
-            category = &quot;Young&quot;;  
-            break;  
-    };  
-    return category;  
-}  
-getCategory(5);  // 将返回 &quot;Baby&quot;
-</code></pre><h2 id="不要在循环内部试用try-catch"><a href="#不要在循环内部试用try-catch" class="headerlink" title="不要在循环内部试用try-catch"></a>不要在循环内部试用try-catch</h2><p>try-catch在catch部分在执行时会将一场付给一个变量，这个变量将会构建成一个运行时作用域的新的变量，导致循环无法退出，内存泄露</p>
-<p>正确的做法，应该是try-catch包裹住循环</p>
-<h1 id="css"><a href="#css" class="headerlink" title="css"></a>css</h1>
-        
-        </div>
-        <footer class="article-footer">
-            <div class="share-container">
-
-
-
-</div>
-
-    <a data-url="http://yoursite.com/2015/11/09/前端奇技淫巧-持续更新中/" data-id="ciwdfvefn000j8alv8k1fgrcy" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
-<script>
-    (function ($) {
-        // Prevent duplicate binding
-        if (typeof(__SHARE_BUTTON_BINDED__) === 'undefined' || !__SHARE_BUTTON_BINDED__) {
-            __SHARE_BUTTON_BINDED__ = true;
-        } else {
-            return;
-        }
-        $('body').on('click', function() {
-            $('.article-share-box.on').removeClass('on');
-        }).on('click', '.article-share-link', function(e) {
-            e.stopPropagation();
-
-            var $this = $(this),
-                url = $this.attr('data-url'),
-                encodedUrl = encodeURIComponent(url),
-                id = 'article-share-box-' + $this.attr('data-id'),
-                offset = $this.offset(),
-                box;
-
-            if ($('#' + id).length) {
-                box = $('#' + id);
-
-                if (box.hasClass('on')){
-                    box.removeClass('on');
-                    return;
-                }
-            } else {
-                var html = [
-                    '<div id="' + id + '" class="article-share-box">',
-                        '<input class="article-share-input" value="' + url + '">',
-                        '<div class="article-share-links">',
-                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="fa fa-twitter article-share-twitter" target="_blank" title="Twitter"></a>',
-                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="fa fa-facebook article-share-facebook" target="_blank" title="Facebook"></a>',
-                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="fa fa-pinterest article-share-pinterest" target="_blank" title="Pinterest"></a>',
-                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="fa fa-google article-share-google" target="_blank" title="Google+"></a>',
-                        '</div>',
-                    '</div>'
-                ].join('');
-
-              box = $(html);
-
-              $('body').append(box);
-            }
-
-            $('.article-share-box.on').hide();
-
-            box.css({
-                top: offset.top + 25,
-                left: offset.left
-            }).addClass('on');
-
-        }).on('click', '.article-share-box', function (e) {
-            e.stopPropagation();
-        }).on('click', '.article-share-box-input', function () {
-            $(this).select();
-        }).on('click', '.article-share-box-link', function (e) {
-            e.preventDefault();
-            e.stopPropagation();
-
-            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
-        });
-    })(jQuery);
-</script>
-
-            
-    
-        <a href="http://yoursite.com/2015/11/09/前端奇技淫巧-持续更新中/#comments" class="article-comment-link disqus-comment-count" data-disqus-url="http://yoursite.com/2015/11/09/前端奇技淫巧-持续更新中/">评论</a>
-    
-
-        </footer>
-    </div>
-    
-</article>
-
-
-
     <nav id="page-nav">
         <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">下一页 &raquo;</a>
     </nav>
@@ -2352,6 +2307,25 @@ getCategory(5);  // 将返回 &quot;Baby&quot;
         <h3 class="widget-title">最新文章</h3>
         <div class="widget">
             <ul id="recent-post" class="">
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2016/12/07/JavaScript-2016-调查-—-状态管理工具/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/images/small.png)" alt="JavaScript 2016 调查 — 状态管理工具" class="thumbnail-image"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/2016/12/07/JavaScript-2016-调查-—-状态管理工具/" class="title">JavaScript 2016 调查 — 状态管理工具</a></p>
+                            <p class="item-date"><time datetime="2016-12-07T10:30:24.000Z" itemprop="datePublished">2016-12-07</time></p>
+                        </div>
+                    </li>
                 
                     <li>
                         
@@ -2429,25 +2403,6 @@ getCategory(5);  // 将返回 &quot;Baby&quot;
                         </div>
                     </li>
                 
-                    <li>
-                        
-                        <div class="item-thumbnail">
-                            <a href="/2016/04/12/假如javascript有了一个标准库（译文）/" class="thumbnail">
-    
-    
-        <span style="background-image:url(/images/1-CZTmVvPduBuWmnlUGAz2VQ.png)" alt="假如javascript有了一个标准库（译文）" class="thumbnail-image"></span>
-    
-</a>
-
-                        </div>
-                        
-                        <div class="item-inner">
-                            <p class="item-category"></p>
-                            <p class="item-title"><a href="/2016/04/12/假如javascript有了一个标准库（译文）/" class="title">假如javascript有了一个标准库（译文）</a></p>
-                            <p class="item-date"><time datetime="2016-04-12T10:02:07.000Z" itemprop="datePublished">2016-04-12</time></p>
-                        </div>
-                    </li>
-                
             </ul>
         </div>
     </div>
@@ -2459,7 +2414,7 @@ getCategory(5);  // 将返回 &quot;Baby&quot;
     <div class="widget-wrap">
         <h3 class="widget-title">归档</h3>
         <div class="widget">
-            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">十二月 2016</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">九月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">四月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">二月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">一月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">十二月 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">十一月 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">十月 2015</a><span class="archive-list-count">1</span></li></ul>
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">十二月 2016</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">九月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">四月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">二月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">一月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">十二月 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">十一月 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">十月 2015</a><span class="archive-list-count">1</span></li></ul>
         </div>
     </div>
 
@@ -2468,7 +2423,7 @@ getCategory(5);  // 将返回 &quot;Baby&quot;
     <div class="widget-wrap">
         <h3 class="widget-title">标签</h3>
         <div class="widget">
-            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Angular/">Angular</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Angular2/">Angular2</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ES6/">ES6</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Github/">Github</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IE浏览器/">IE浏览器</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript-2016/">JavaScript 2016</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/React/">React</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TypeScript/">TypeScript</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Vue/">Vue</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Vue2/">Vue2</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/badge/">badge</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/coverage/">coverage</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/coveralls/">coveralls</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/css/">css</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gitflow/">gitflow</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/">github</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github-flow/">github flow</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gitlab/">gitlab</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/istanbul/">istanbul</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/node/">node</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/test/">test</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vows/">vows</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/兼容性/">兼容性</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/前端框架/">前端框架</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/包管理工具/">包管理工具</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/工作实践/">工作实践</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/测试/">测试</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/语言规范/">语言规范</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/－javascript-node-es6/">－javascript - node - es6</a><span class="tag-list-count">1</span></li></ul>
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Angular/">Angular</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Angular2/">Angular2</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ES6/">ES6</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Github/">Github</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IE浏览器/">IE浏览器</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript-2016/">JavaScript 2016</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/React/">React</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TypeScript/">TypeScript</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Vue/">Vue</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Vue2/">Vue2</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/badge/">badge</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/coverage/">coverage</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/coveralls/">coveralls</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/css/">css</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gitflow/">gitflow</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/">github</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github-flow/">github flow</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gitlab/">gitlab</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/istanbul/">istanbul</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/node/">node</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/test/">test</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vows/">vows</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/兼容性/">兼容性</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/前端框架/">前端框架</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/包管理工具/">包管理工具</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/工作实践/">工作实践</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/测试/">测试</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/语言规范/">语言规范</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/－javascript-node-es6/">－javascript - node - es6</a><span class="tag-list-count">1</span></li></ul>
         </div>
     </div>
 
