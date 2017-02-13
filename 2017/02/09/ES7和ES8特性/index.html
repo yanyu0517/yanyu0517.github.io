@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <meta charset="utf-8">
+    
+    <title>ES7和ES8特性.md | new Number(10).toString(16) new Number(254).toString(16)</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="原文出处：https://node.university/blog/498412/es7-es8
+最近我为ES6/ES2015写了一篇博客，并做了一个在线教程。你猜怎么着，TC39（译者注：TC39是Javascript技术进化委员会）已经设计并推进ES8了，因此让我们来搞清楚ES7和ES8（官方说法是ES2016和ES2017）。幸运的是，与ES6相比，ES7和ES8的内容相当少。其中ES7仅仅">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ES7和ES8特性.md">
+<meta property="og:url" content="http://yoursite.com/2017/02/09/ES7和ES8特性/index.html">
+<meta property="og:site_name" content="new Number(10).toString(16) new Number(254).toString(16)">
+<meta property="og:description" content="原文出处：https://node.university/blog/498412/es7-es8
+最近我为ES6/ES2015写了一篇博客，并做了一个在线教程。你猜怎么着，TC39（译者注：TC39是Javascript技术进化委员会）已经设计并推进ES8了，因此让我们来搞清楚ES7和ES8（官方说法是ES2016和ES2017）。幸运的是，与ES6相比，ES7和ES8的内容相当少。其中ES7仅仅">
+<meta property="og:image" content="https://ww1.sinaimg.cn/large/006tNc79ly1fcgu138drlj30qo0f5mzg.jpg">
+<meta property="og:updated_time" content="2017-02-09T04:07:19.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ES7和ES8特性.md">
+<meta name="twitter:description" content="原文出处：https://node.university/blog/498412/es7-es8
+最近我为ES6/ES2015写了一篇博客，并做了一个在线教程。你猜怎么着，TC39（译者注：TC39是Javascript技术进化委员会）已经设计并推进ES8了，因此让我们来搞清楚ES7和ES8（官方说法是ES2016和ES2017）。幸运的是，与ES6相比，ES7和ES8的内容相当少。其中ES7仅仅">
+<meta name="twitter:image" content="https://ww1.sinaimg.cn/large/006tNc79ly1fcgu138drlj30qo0f5mzg.jpg">
+    
+
+    
+
+    
+        <link rel="icon" href="/favicon.png" />
+    
+
+    <link rel="stylesheet" href="/vendor/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/vendor/open-sans/styles.css">
+    <link rel="stylesheet" href="/vendor/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="/vendor/jquery/2.1.3/jquery.min.js"></script>
+    
+    
+        <link rel="stylesheet" href="/vendor/fancybox/jquery.fancybox.css">
+    
+    
+    
+    
+
+</head>
+<body>
+    <div id="container">
+        <header id="header">
+    <div id="header-main" class="header-inner">
+        <div class="outer">
+            <a href="/" id="logo">
+                <i class="logo"></i>
+                <span class="site-title">new Number(10).toString(16) new Number(254).toString(16)</span>
+            </a>
+            <nav id="main-nav">
+                
+                    <a class="main-nav-link" href="/.">Home</a>
+                
+                    <a class="main-nav-link" href="/archives">Archives</a>
+                
+                    <a class="main-nav-link" href="/tags">Tags</a>
+                
+            </nav>
+            
+                
+                <nav id="sub-nav">
+                    <div class="profile" id="profile-nav">
+                        <a id="profile-anchor" href="javascript:;">
+                            <img class="avatar" src="/css/images/avatar.png" />
+                            <i class="fa fa-caret-down"></i>
+                        </a>
+                    </div>
+                </nav>
+            
+            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="想要查找什么..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+        </div>
+    </div>
+    <div id="main-nav-mobile" class="header-sub header-inner">
+        <table class="menu outer">
+            <tr>
+                
+                    <td><a class="main-nav-link" href="/.">Home</a></td>
+                
+                    <td><a class="main-nav-link" href="/archives">Archives</a></td>
+                
+                    <td><a class="main-nav-link" href="/tags">Tags</a></td>
+                
+                <td>
+                    
+    <div class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索" />
+    </div>
+
+                </td>
+            </tr>
+        </table>
+    </div>
+</header>
+
+        <div class="outer">
+            
+                
+
+<aside id="profile">
+    <div class="inner profile-inner">
+        <div class="base-info profile-block">
+            <img id="avatar" src="/css/images/avatar.png" />
+            <h2 id="name">Yan Yu</h2>
+            <h3 id="title">FE</h3>
+            <span id="location"><i class="fa fa-map-marker"></i>PEK, China</span>
+            <a id="follow" target="_blank" href="https://github.com/yanyu0517/">关注我</a>
+        </div>
+        <div class="article-info profile-block">
+            <div class="article-info-block">
+                14
+                <span>文章</span>
+            </div>
+            <div class="article-info-block">
+                33
+                <span>标签</span>
+            </div>
+        </div>
+        
+        <div class="profile-block social-links">
+            <table>
+                <tr>
+                    
+                    
+                    <td>
+                        <a href="https://github.com/yanyu0517/" target="_blank" title="github" class=tooltip>
+                            <i class="fa fa-github"></i>
+                        </a>
+                    </td>
+                    
+                    <td>
+                        <a href="https://www.facebook.com/yu.yan.338863" target="_blank" title="facebook" class=tooltip>
+                            <i class="fa fa-facebook"></i>
+                        </a>
+                    </td>
+                    
+                </tr>
+            </table>
+        </div>
+        
+    </div>
+</aside>
+
+            
+            <section id="main"><article id="post-ES7和ES8特性" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+            ES7和ES8特性.md
+        </h1>
+    
+
+                <div class="article-meta">
+                    
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/2017/02/09/ES7和ES8特性/">
+            <time datetime="2017-02-09T04:07:19.000Z" itemprop="datePublished">2017-02-09</time>
+        </a>
+    </div>
+
+
+                    
+                    
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/es7/">es7</a>, <a class="tag-link" href="/tags/es8/">es8</a>, <a class="tag-link" href="/tags/js/">js</a>
+    </div>
+
+                </div>
+            </header>
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            
+            <p>原文出处：<a href="https://node.university/blog/498412/es7-es8" target="_blank" rel="external">https://node.university/blog/498412/es7-es8</a></p>
+<p>最近我为ES6/ES2015写了一篇<a href="https://webapplog.com/es6/" target="_blank" rel="external">博客</a>，并做了一个<a href="https://node.university/p/es6" target="_blank" rel="external">在线教程</a>。你猜怎么着，TC39（译者注：TC39是Javascript技术进化委员会）已经设计并推进ES8了，因此让我们来搞清楚ES7和ES8（官方说法是ES2016和ES2017）。幸运的是，与ES6相比，ES7和ES8的内容相当少。其中ES7仅仅新增了两个新特性！</p>
+<p>ES7新特性</p>
+<ol>
+<li><code>Array.prototype.includes</code></li>
+<li>幂运算符</li>
+</ol>
+<p><img src="https://ww1.sinaimg.cn/large/006tNc79ly1fcgu138drlj30qo0f5mzg.jpg" alt=""></p>
+<p>截止到本文发出（2017年2月），ES8标准仍然没有定稿。但是我们仍然可以学习已天完成的（stage 4）和大部分处于候选阶段（stage 3）的特性（关于stage，可以参考<a href="https://tc39.github.io/process-document/" target="_blank" rel="external">TC39 Process</a>，以及我的<a href="https://node.university/p/es6。译者注：TC39把所有的提案分为了5个阶段，从0到4。stage 0：提出，stage 1：建议，stage 2：草案，stage 3：候选，stage 4：完成" target="_blank" rel="external">课程</a>）。目前已经完成的（stage 4）ES8新特性有：</p>
+<ol>
+<li><code>Object.values/Object.entries</code></li>
+<li>字符串 padding</li>
+<li><code>Object.getOwnPropertyDescriptors</code></li>
+<li>Trailing commas in function parameter lists and calls</li>
+<li>异步函数</li>
+</ol>
+<p>我并没有把处于stage 3的ES8新特性列出来，如果你有兴趣可以查看<a href="https://github.com/tc39/proposals/blob/master/README.md" target="_blank" rel="external">从0到3所有的提案</a>。</p>
+<p>接下来，让我们看看这些新特性吧。</p>
+<hr>
+<h1 id="Array-prototype-includes"><a href="#Array-prototype-includes" class="headerlink" title="Array.prototype.includes"></a><code>Array.prototype.includes</code></h1><p>自从有了<code>Array.prototype.includes</code>，世界变得如此美好。在没有<code>Array.prototype.includes</code>，开发人员使用<code>indexOf</code>（<code>indexOf</code>也是从IE10开始完全支持的，IE9都是部分支持）来判断数组中是否包含某一个值，这其实并不是很合适，甚至有些尴尬的，因为ES6中<code>indexOf</code>返回的是值在数组中的索引，是一个整形数值而非布尔值，如果值并没有在数组中出现，那么则返回<code>-1</code>。开发者如果想使用<code>indexOf</code>来判断数组是否包含该值，还需要写额外的代码需要，而不能直接使用<code>indexOf</code>运算的结果来判断，因为当不包含值时返回的索引-1会被js认为是<code>true</code>，而如果值是在数组的第一位返回的索引0则会被js认为是<code>false</code>。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> arr = [<span class="string">'react'</span>, <span class="string">'angular'</span>, <span class="string">'vue'</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment">// WRONG</span></span><br><span class="line"><span class="keyword">if</span> (arr.indexOf(<span class="string">'react'</span>)) &#123; <span class="comment">// 0 -&gt; evaluates to false, definitely as we expected</span></span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'Can use React'</span>) <span class="comment">// this line would never be executed</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Correct</span></span><br><span class="line"><span class="keyword">if</span> (arr.indexOf(<span class="string">'react'</span>) !== <span class="number">-1</span>) &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'Can use React'</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如果觉得对-1的判断有些不优雅，还可以使用位判断符—按位非<code>~</code>。<code>~</code>会对返回的索引做<code>-(index + 1</code>)的处理。0会变成-1，1会变成-2，2会变成-3，而-1会变成0。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> arr = [<span class="string">'react'</span>, <span class="string">'angular'</span>, <span class="string">'vue'</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment">// Correct</span></span><br><span class="line"><span class="keyword">if</span> (~arr.indexOf(<span class="string">'react'</span>)) &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'Can use React'</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如果使用ES7的<code>includes</code>，只需要这么写：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> arr = [<span class="string">'react'</span>, <span class="string">'angular'</span>, <span class="string">'vue'</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment">// Correct</span></span><br><span class="line"><span class="keyword">if</span> (arr.includes(<span class="string">'react'</span>)) &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'Can use React'</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>includes</code>还支持String类型</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> <span class="keyword">str</span> = <span class="symbol">'React</span> Quickly'</span><br><span class="line"></span><br><span class="line"><span class="comment">// Correct</span></span><br><span class="line"><span class="keyword">if</span> (<span class="keyword">str</span>.toLowerCase().includes(<span class="symbol">'react</span>')) &#123;  <span class="comment">// true</span></span><br><span class="line">  console.log(<span class="symbol">'Found</span> <span class="string">"react"</span>')  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>有趣的是，在<code>includes</code>没有成为标准之前，已经有很多JavaScript的库实现了同样的功能，取名为<code>includes</code>或者<code>contains</code>（TC39在取名时，因为<a href="https://esdiscuss.org/topic/having-a-non-enumerable-array-prototype-contains-may-not-be-web-compatible" target="_blank" rel="external">不可枚举的原因</a>，没有采用<code>contains</code>）</p>
+<ul>
+<li>jQuery: <code>$.inArray</code></li>
+<li>Underscore.js: <code>_.contains</code></li>
+<li>Lodash: <code>_.includes</code> (在3.0版本之前，与Underscore一样使用的是 <code>_.contains</code>，译者注：毕竟Lodash是从Underscore fork出来的)</li>
+<li>CoffeeScript: <code>in</code>操作符（<a href="http://coffeescript.org/#try:arr = [&#39;react&#39;," title="angular&#39;, &#39;vue&#39;]%0Aif (&#39;react&#39; in arr)%0A  console.log(&#39;Can use React" target="_blank" rel="external">例子</a>%0A)）</li>
+<li>Dart: <code>list.contains</code>（<a href="https://gist.github.com/anonymous/b8e39109e5705a9a0ff7281c1af97195" target="_blank" rel="external">例子</a>）</li>
+</ul>
+<p><code>includes</code>还能够识别<code>NAN</code>，这是<code>indexOf</code>所不具备的。最后，<code>includes</code>还有第二个可选参数<code>fromIndex</code>，标识从哪个索引开始检索，这将会提升执行性能。</p>
+<p>例子</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>].includes(<span class="number">2</span>)) <span class="comment">// === true)</span></span><br><span class="line"><span class="built_in">console</span>.log([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>].includes(<span class="number">4</span>)) <span class="comment">// === false)</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log([<span class="number">1</span>, <span class="number">2</span>, <span class="literal">NaN</span>].includes(<span class="literal">NaN</span>)) <span class="comment">// === true)</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log([<span class="number">1</span>, <span class="number">2</span>, <span class="number">-0</span>].includes(+<span class="number">0</span>)) <span class="comment">// === true)</span></span><br><span class="line"><span class="built_in">console</span>.log([<span class="number">1</span>, <span class="number">2</span>, +<span class="number">0</span>].includes(<span class="number">-0</span>)) <span class="comment">// === true)</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log([<span class="string">'a'</span>, <span class="string">'b'</span>, <span class="string">'c'</span>].includes(<span class="string">'a'</span>)) <span class="comment">// === true)</span></span><br><span class="line"><span class="built_in">console</span>.log([<span class="string">'a'</span>, <span class="string">'b'</span>, <span class="string">'c'</span>].includes(<span class="string">'a'</span>, <span class="number">1</span>)) <span class="comment">// === false)</span></span><br></pre></td></tr></table></figure>
+<p>总而言之，<code>includes</code>简化了我们的开发，这不是很好吗！</p>
+<h1 id="幂运算符"><a href="#幂运算符" class="headerlink" title="幂运算符"></a>幂运算符</h1><p>幂运算符在3D、VR、SVG或者数据可视化领域的数学运算被广泛应用。在ES6和更早的时候，要进行幂运算，我们可以创建一个递归函数，或者使用<code>Math.power</code>方法。如果你忘了幂运算符是什么，幂运算符就是多个相同的因数相乘，比如7的3次幂，就是<code>7*7*7</code>。</p>
+<p>因此在ES6/ES2015中，使用<code>Math.power</code>或者递归来计算幂运算，如下：</p>
+<figure class="highlight aspectj"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">calculateExponent = (base, exponent) =&gt; base*((--exponent&gt;<span class="number">1</span>)?calculateExponent(base, exponent):base)</span><br><span class="line">console.log(calculateExponent(7,12) === Math.pow(7,12)) // <span class="keyword">true</span></span><br><span class="line">console.log(calculateExponent(2,7) === Math.pow(2,7)) // <span class="keyword">true</span></span><br></pre></td></tr></table></figure>
+<p>在ES7/ES2016中，开发人员可以使用更简短的写法了</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> a = <span class="number">7</span> ** <span class="number">12</span></span><br><span class="line"><span class="keyword">let</span> b = <span class="number">2</span> ** <span class="number">7</span></span><br><span class="line"><span class="built_in">console</span>.log(a === <span class="built_in">Math</span>.pow(<span class="number">7</span>,<span class="number">12</span>)) <span class="comment">// true</span></span><br><span class="line"><span class="built_in">console</span>.log(b === <span class="built_in">Math</span>.pow(<span class="number">2</span>,<span class="number">7</span>)) <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+<p>与其他运算符一样，幂运算符也可以使用语法糖来简化写法</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> a = <span class="number">7</span></span><br><span class="line">a **= <span class="number">12</span></span><br><span class="line"><span class="keyword">let</span> b = <span class="number">2</span></span><br><span class="line">b **= <span class="number">7</span></span><br><span class="line"><span class="built_in">console</span>.log(a === <span class="built_in">Math</span>.pow(<span class="number">7</span>,<span class="number">12</span>)) <span class="comment">// true</span></span><br><span class="line"><span class="built_in">console</span>.log(b === <span class="built_in">Math</span>.pow(<span class="number">2</span>,<span class="number">7</span>)) <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+<p>新的ES特性从其他语言（CoffeeScript，Ruby等等）中借鉴了很多，所以不难猜到，其他语言中也会有幂运算符。</p>
+<ul>
+<li>Python: <code>x ** y</code></li>
+<li>CoffeeScript: <code>x ** y</code></li>
+<li>F#: <code>x ** y</code></li>
+<li>Ruby: <code>x ** y</code></li>
+<li>Perl: <code>x ** y</code></li>
+<li>Lua, Basic, MATLAB: <code>x ^ y</code></li>
+</ul>
+<p>对于我个人来说，没有幂运算符并没有感到不便。:)在我15年的JavaScript开发经验中，我从来没有写过任何幂运算，除了在面试或者教程中。那么对于你来说，没有幂运算符是否会造成很大的麻烦？</p>
+<h1 id="Object-values-Object-entries"><a href="#Object-values-Object-entries" class="headerlink" title="Object.values/Object.entries"></a><code>Object.values/Object.entries</code></h1><p>ES8/ES2017中增加了两个新方法<code>Object.values</code>和<code>Object.entries</code>，与<code>Object.keys</code>一样，两个方法返回的都是数组。，数组中元素的排序与<code>Object.keys</code>返回数据的排序一致。</p>
+<p><code>Object.values</code>、<code>Object.entries</code>与<code>Object.keys</code>这三个方法，分别返回了对应的key值，value值以及特定格式的键值对数据，并且这些返回时一一对应的。</p>
+<p>在ES8/ES2017之前，如果开发者想要遍历对象的自有属性，不得不使用<code>Object.keys</code>先获得自有属性的key值，然后使用<code>obj[key]</code>来得到自有属性的值。</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> obj = &#123;<span class="variable">a:</span> <span class="number">1</span>, <span class="variable">b:</span> <span class="number">2</span>, <span class="keyword">c</span>: <span class="number">3</span>&#125;</span><br><span class="line">Object.<span class="built_in">keys</span>(obj).forEach((key, <span class="built_in">index</span>)=&gt;&#123;</span><br><span class="line">  console.<span class="built_in">log</span>(key, obj[key])</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>或者使用ES6/ES2015的<code>for/of</code>会稍微优雅一些</p>
+<figure class="highlight gauss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> obj = &#123;a: <span class="number">1</span>, b: <span class="number">2</span>, c: <span class="number">3</span>&#125;</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">let</span> <span class="built_in">key</span> of Object.keys(obj)) &#123;</span><br><span class="line">  console.<span class="built_in">log</span>(<span class="built_in">key</span>, obj[<span class="built_in">key</span>])</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>还可以使用ES5的<code>for/in</code>，不过<code>for/in</code>会遍历对象所有可以枚举的属性（比如定义在prototype中的属性，<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for...of#Difference_between_for...of_and_for...in" target="_blank" rel="external">MDN</a>），而不是自有属性，这将会造成不可预料的问题，比如遍历出了<code>prototype</code>或者<code>toString</code>。</p>
+<p><code>Object.values</code>返回对象自有属性的值组成的数组，可以通过forEach来取得值。</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">let obj = &#123;<span class="selector-tag">a</span>: <span class="number">1</span>, <span class="selector-tag">b</span>: <span class="number">2</span>, c: <span class="number">3</span>&#125;</span><br><span class="line">Object.values(obj).forEach(value=&gt;console.log(value)) <span class="comment">// 1, 2, 3</span></span><br></pre></td></tr></table></figure>
+<p>或者使用<code>for/of</code></p>
+<figure class="highlight ceylon"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> obj = &#123;a: <span class="number">1</span>, b: <span class="number">2</span>, c: <span class="number">3</span>&#125;</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">let</span> <span class="keyword">value</span> <span class="keyword">of</span> Object.values(obj)) &#123;</span><br><span class="line">  console.log(<span class="keyword">value</span>)</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 1, 2, 3</span></span><br></pre></td></tr></table></figure>
+<p><code>Object.entries</code>返回对象自有属性的键值对数组组成的二维数组。</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">let obj = &#123;<span class="selector-tag">a</span>: <span class="number">1</span>, <span class="selector-tag">b</span>: <span class="number">2</span>, c: <span class="number">3</span>&#125;</span><br><span class="line">JSON.stringify(Object.entries(obj))</span><br><span class="line"><span class="string">"[["</span>a<span class="string">",1],["</span>b<span class="string">",2],["</span>c<span class="string">",3]]"</span></span><br></pre></td></tr></table></figure>
+<p>我们可以使用ES6/ES2015来提取二维数组中的<code>key</code>和<code>value</code>（可以参考这篇<a href="https://webapplog.com/es6/" target="_blank" rel="external">文章</a>或者这个<a href="https://node.university/p/es6" target="_blank" rel="external">教程</a>）。</p>
+<figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">let obj = &#123;a: <span class="number">1</span>, b: <span class="number">2</span>, c: <span class="number">3</span>&#125;</span><br><span class="line">Object.entries(obj).forEach(<span class="function"><span class="params">([key, value])</span> =&gt;</span> &#123;</span><br><span class="line"> <span class="built_in">console</span>.log(`<span class="javascript">$&#123;key&#125; is $&#123;value&#125;</span>`)</span><br><span class="line">&#125;)</span><br><span class="line"><span class="regexp">//</span> a <span class="keyword">is</span> <span class="number">1</span>, b <span class="keyword">is</span> <span class="number">2</span>, c <span class="keyword">is</span> <span class="number">3</span></span><br></pre></td></tr></table></figure>
+<p>你可以猜到，我们可以使用ES6的<code>for/of</code>来遍历<code>Object.entries</code>的返回结果。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> obj = &#123;a: <span class="number">1</span>, b: <span class="number">2</span>, c: <span class="number">3</span>&#125;</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">let</span> [key, value] <span class="keyword">of</span> <span class="built_in">Object</span>.entries(obj)) &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">`<span class="subst">$&#123;key&#125;</span> is <span class="subst">$&#123;value&#125;</span>`</span>)</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// a is 1, b is 2, c is 3</span></span><br></pre></td></tr></table></figure>
+<p>现在提取value还有键值对更加容易了，<code>Object.values</code>和<code>Object.entries</code>联合<code>for/of</code>（ES6）可以很轻松的遍历对象。</p>
+<h1 id="padStart和padEnd"><a href="#padStart和padEnd" class="headerlink" title="padStart和padEnd"></a><code>padStart</code>和<code>padEnd</code></h1><p>ES8提供了字符串原生API<code>String.prototype.padStart</code>和<code>String.prototype.padEnd</code>，提供类似<a href="http://www.haneycodes.net/npm-left-pad-have-we-forgotten-how-to-program/" target="_blank" rel="external">left-pad</a>的功能，原生API用起来会更愉快，起码不用担心会被unpublish</p>
+<p><code>padStart()</code>返回一个指定长度的字符串，如果原来的字符串长度不够，那么从字符串左侧插入占位符补齐长度。占位符是一个指定的字符串，会一直重复直到字符串长度达到要求。从左侧开始补齐，因为在大多数西语环境中，字符串是从左侧开始的。下面的例子是使用空格来占位：</p>
+<figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="string">'react'</span>.padStart(<span class="number">10</span>).length)         <span class="regexp">//</span> <span class="string">"       react"</span> <span class="keyword">is</span> <span class="number">10</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'backbone'</span>.padStart(<span class="number">10</span>).length)         <span class="regexp">//</span> <span class="string">"  backbone"</span> <span class="keyword">is</span> <span class="number">10</span></span><br></pre></td></tr></table></figure>
+<p>这个方法在财务领域的开发是非常有用的，可以用来做数值报表的对齐。</p>
+<figure class="highlight autoit"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">console.<span class="built_in">log</span>(<span class="string">'0.00'</span>.padStart(<span class="number">20</span>))         	</span><br><span class="line">console.<span class="built_in">log</span>(<span class="string">'10,000.00'</span>.padStart(<span class="number">20</span>))    </span><br><span class="line">console.<span class="built_in">log</span>(<span class="string">'250,000.00'</span>.padStart(<span class="number">20</span>))</span><br></pre></td></tr></table></figure>
+<p>上面的运行结果是会得到一个非常优美的在会计领域的报表格式</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">      0<span class="selector-class">.00</span></span><br><span class="line"> 10,000<span class="selector-class">.00</span></span><br><span class="line">250,000<span class="selector-class">.00</span></span><br></pre></td></tr></table></figure>
+<p>占位符默认是空格，也可以在方法的第二个参数中自己定义，并且占位符可以是任意长度。</p>
+<figure class="highlight autoit"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">console.<span class="built_in">log</span>(<span class="string">'react'</span>.padStart(<span class="number">10</span>, <span class="string">'_'</span>))         // <span class="string">"_____react"</span></span><br><span class="line">console.<span class="built_in">log</span>(<span class="string">'backbone'</span>.padStart(<span class="number">10</span>, <span class="string">'*'</span>))         // <span class="string">"**backbone"</span></span><br></pre></td></tr></table></figure>
+<p>不难猜到<code>padEnd</code>，是从字符串结束的位置，也就是右侧开始插入占位符。与<code>padStart</code>一样，也提供了第二个参数自定义占位符。</p>
+<figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="string">'react'</span>.padEnd(<span class="number">10</span>, <span class="string">':-)'</span>))         <span class="regexp">//</span> <span class="string">"react:-):-"</span> <span class="keyword">is</span> <span class="number">10</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'backbone'</span>.padEnd(<span class="number">10</span>, <span class="string">'*'</span>))         <span class="regexp">//</span> <span class="string">"backbone**"</span> <span class="keyword">is</span> <span class="number">10</span></span><br></pre></td></tr></table></figure>
+<h1 id="Object-getOwnPropertyDescriptors"><a href="#Object-getOwnPropertyDescriptors" class="headerlink" title="Object.getOwnPropertyDescriptors"></a><code>Object.getOwnPropertyDescriptors</code></h1><p>新的api<code>Object.getOwnPropertyDescriptors</code>返回对象所有的自有属性，是<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/getOwnPropertyDescriptor" target="_blank" rel="external">Object.getOwnPropertyDescriptor(obj, propName)</a>的复数版本，<code>Object.getOwnPropertyDescriptor(obj, propName)</code>只能返回指定自有属性的值。</p>
+<p>现在我们面对的是不可变数据编程，这个方法能起到很大的作用（记住，JavaScript是传引用的，不是传值得）。在ES5中，开发者使用<code>Object.assign()</code>来复制数据，<code>Object.assign()</code>只能复制自有属性，而不能复制prototype中的属性，这将很难处理复杂对象或者class属性的。</p>
+<p><code>Object.getOwnPropertyDescriptors</code>可以用来创建一个真正的浅拷贝或者创建一个子类。结合<code>Object.create(prototype, object)</code>来创建浅拷贝，<code>Object.getOwnPropertyDescriptors</code>返回结果作为第二个参数传给<code>Object.create(prototype, object)</code>。（译者注：<code>Object.create(prototype, object)</code>的第一个参数是创建对象的prototype，也可以说是<strong>prop</strong>，第二个参数用来创建对象的自有属性，也可以说是this属性）</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">Object</span><span class="selector-class">.create</span>(</span><br><span class="line">  <span class="selector-tag">Object</span><span class="selector-class">.getPrototypeOf</span>(<span class="selector-tag">obj</span>),</span><br><span class="line">  <span class="selector-tag">Object</span><span class="selector-class">.getOwnPropertyDescriptors</span>(<span class="selector-tag">obj</span>)</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<p>或者，我们也可以合并<code>target</code>和<code>source</code>两个对象</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">Object</span><span class="selector-class">.defineProperties</span>(</span><br><span class="line">  <span class="selector-tag">target</span>,</span><br><span class="line">  <span class="selector-tag">Object</span><span class="selector-class">.getOwnPropertyDescriptors</span>(<span class="selector-tag">source</span>)</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<p>那么什么是<code>descriptor</code>描述符呢？描述符是一个对象，咄！</p>
+<p>好吧好吧，让我们来更深入的了解描述符。在JavaScript中有两种描述符：</p>
+<ol>
+<li>数据描述符</li>
+<li>访问器描述符</li>
+</ol>
+<p>访问器描述符有两个强制属性，<code>get</code>和<code>set</code>，根据名字你也能够猜到是<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/get" target="_blank" rel="external">getter</a>方法和<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/set" target="_blank" rel="external">setter</a>方法。还有两个可选属性，<code>configurable</code>和<code>enumerable</code>。</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">let azatsBooks = &#123;  </span><br><span class="line">  books: [<span class="string">'React Quickly'</span>],</span><br><span class="line">  <span class="keyword">get</span> latest () &#123;</span><br><span class="line">    let numberOfBooks = <span class="keyword">this</span>.books.length</span><br><span class="line">    <span class="keyword">if</span> (numberOfBooks == <span class="number">0</span>) <span class="keyword">return</span> undefined</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.books[numberOfBooks - <span class="number">1</span>]</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上例中的数据描述符是<code>books</code>，执行<code>Object.getOwnPropertyDescriptor(azatsBooks, &#39;books&#39;)</code>得到：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Object</span></span><br><span class="line">	configurable: <span class="literal">true</span></span><br><span class="line">	enumerable: <span class="literal">true</span></span><br><span class="line">	value: <span class="built_in">Array</span>[<span class="number">1</span>]</span><br><span class="line">	writable: <span class="literal">true</span></span><br><span class="line">	__proto__: <span class="built_in">Object</span></span><br></pre></td></tr></table></figure>
+<p>同样，对于修饰符执行<code>latest</code>，执行<code>Object.getOwnPropertyDescriptor(azatsBooks, &#39;latest&#39;)</code>得到：</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Object</span></span><br><span class="line">	configurable: truee</span><br><span class="line">	numerable: <span class="literal">true</span></span><br><span class="line">	<span class="keyword">get</span>: latest()</span><br><span class="line">	<span class="keyword">set</span>: <span class="literal">undefined</span></span><br><span class="line">	__proto__: <span class="built_in">Object</span></span><br></pre></td></tr></table></figure>
+<p>下面让我们使用新的api来得到所有修饰符</p>
+<p><code>console.log(Object.getOwnPropertyDescriptors(azatsBooks))</code></p>
+<p>返回的结果中包含了描述符<code>books</code>和<code>latest</code></p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">Object</span><br><span class="line"><span class="attr">  books:</span> Object</span><br><span class="line"><span class="attr">    configurable:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">    enumerable:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">    value:</span> Array[<span class="number">1</span>]</span><br><span class="line"><span class="attr">    writable:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">    __proto__:</span> Object</span><br><span class="line"><span class="attr">  latest:</span> Object</span><br><span class="line"><span class="attr">    configurable:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">    enumerable:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">    get:</span> latest()</span><br><span class="line"><span class="attr">    set:</span> undefined</span><br><span class="line"><span class="attr">    __proto__:</span> Object</span><br><span class="line"><span class="attr">  __proto__:</span> Object</span><br></pre></td></tr></table></figure>
+<p>在浏览器的控制台中执行，会得到如下面的打印结果</p>
+<p><img src="https://ww1.sinaimg.cn/large/006tNc79ly1fcj7i6nbhoj30aa0bcjs8.jpg" alt=""></p>
+<h1 id="方法参数允许以逗号结束"><a href="#方法参数允许以逗号结束" class="headerlink" title="方法参数允许以逗号结束"></a>方法参数允许以逗号结束</h1><p>这个是纯粹的语法变化，在ES5中，方法的参数不能以逗号结束。</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">var</span> f = function(<span class="selector-tag">a</span>,</span><br><span class="line">  <span class="selector-tag">b</span>,</span><br><span class="line">  c,</span><br><span class="line">  d) &#123; <span class="comment">// NO COMMA!</span></span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">  console.log(d)</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="title">f</span><span class="params">(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="string">'this'</span>)</span></span></span><br></pre></td></tr></table></figure>
+<p>在ES8中，这是被允许的</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">var</span> f = function(<span class="selector-tag">a</span>,</span><br><span class="line">  <span class="selector-tag">b</span>,</span><br><span class="line">  c,</span><br><span class="line">  d,</span><br><span class="line">) &#123; <span class="comment">// COMMA? OK!</span></span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">  console.log(d)</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="title">f</span><span class="params">(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="string">'this'</span>)</span></span></span><br></pre></td></tr></table></figure>
+<p>其他允许以逗号结束的行为有：数组允许以逗号结束（从ES3开始），对象允许以逗号结束（从ES5开始）</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">var</span> arr = [<span class="number">1</span>,  <span class="comment">// Length == 3</span></span><br><span class="line">  <span class="number">2</span>,</span><br><span class="line">  <span class="number">3</span>,</span><br><span class="line">]  <span class="comment">// &lt;--- ok</span></span><br><span class="line">let obj = &#123;<span class="selector-tag">a</span>: <span class="number">1</span>,  <span class="comment">// Only 3 properties</span></span><br><span class="line">  <span class="selector-tag">b</span>: <span class="number">2</span>,</span><br><span class="line">  c: <span class="number">3</span>,</span><br><span class="line">&#125;  <span class="comment">// &lt;--- ok</span></span><br></pre></td></tr></table></figure>
+<p>并且，这种写法是<code>git-friendly</code>的。</p>
+<p>如果你写代码习惯对方法参数换行的话，尤其又是有很多参数的时候，这个改动会对你有很大的帮助。通常都会把参数直接的逗号放在每行的第一位，这样能够提醒开发者这一行与上一行是一个方法的参数，还能提醒开发者逗号不能是最后一位，这样的写法虽然避免了问题，但是一大堆以逗号开头的代码看起来还是很怪异的。现在方法参数允许以逗号结束了，就不会再有这种问题了，开发者可以把逗号放在任何地方，即使是方法参数的最后一位。</p>
+<h1 id="异步函数"><a href="#异步函数" class="headerlink" title="异步函数"></a>异步函数</h1><p>异步函数，或者说async/await大家会更熟悉，类似于<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise" target="_blank" rel="external">Promise</a>，都是用来更简洁的处理异步调用的。因为。。。好吧，因为人类的大脑在进化过程中，并没有进化出并行处理事物的机能。</p>
+<p>个人来讲，我并不喜欢promise（译者注：同感）。相比回调，promise显得更加冗长和繁琐，所以我从来不使用promise。幸运的是，在ES8里面，开发者可以使用<code>async</code>关键字来定义一个函数，来实现基于promise的操作。每一个异步函数都返回promise对象。</p>
+<p>在ES6中，我们可以使用Promise和<a href="https://github.com/mzabriskie/axios" target="_blank" rel="external">Axios</a>来创建一个请求：</p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">axios</span><span class="selector-class">.get</span>(<span class="built_in">`/q?query=$&#123;query&#125;`</span>)</span><br><span class="line">  <span class="selector-class">.then</span>(response =&gt; response.data)</span><br><span class="line">  <span class="selector-class">.then</span>(data =&gt; &#123;</span><br><span class="line">    this<span class="selector-class">.props</span><span class="selector-class">.processfetchedData</span>(data) <span class="comment">// Defined somewhere else</span></span><br><span class="line">  &#125;)</span><br><span class="line">  <span class="selector-class">.catch</span>(error =&gt; console.log(error))</span><br></pre></td></tr></table></figure>
+<p>任何一个promise库都能够与async/await配合使用，我们使用async/await改造上面的例子，并增加了try/catch来捕获异常</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">async</span> fetchData(url) =&gt; &#123;</span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> response = <span class="keyword">await</span> axios.get(<span class="string">`/q?query=<span class="subst">$&#123;query&#125;</span>`</span>)</span><br><span class="line">    <span class="keyword">const</span> data = response.data</span><br><span class="line">    <span class="keyword">this</span>.props.processfetchedData(data)</span><br><span class="line">  &#125; <span class="keyword">catch</span> (error) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(error)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>async声明的函数会返回一个Promise对象，因此我们可以继续用promise的方式来处理我们的工作流。</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">async fetchData(query) =&gt; &#123;</span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">    const response = await axios.<span class="keyword">get</span>(`/q?query=$&#123;query&#125;`)</span><br><span class="line">    const <span class="keyword">data</span> = response.<span class="keyword">data</span></span><br><span class="line">  	<span class="keyword">return</span> <span class="keyword">data</span></span><br><span class="line">  &#125; <span class="keyword">catch</span> (error) &#123;</span><br><span class="line">    console.log(error)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">fetchData(query).then(<span class="keyword">data</span> =&gt; &#123;</span><br><span class="line">  <span class="keyword">this</span>.props.processfetchedData(<span class="keyword">data</span>)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>async/await的工作原来可以参考<a href="https://babeljs.io/repl/#?babili=false&amp;evaluate=true&amp;lineWrap=false&amp;presets=es2015%2Ces2017&amp;targets=&amp;browsers=&amp;builtIns=false&amp;code=let%20axios%20%3D%20%7B%0A%20%20get%3A%20function(x" target="_blank" rel="external">Babel REPL</a>%20%7B%0A%20%20return%20new%20Promise(resolve%20%3D%3E%20%7B%0A%20%20%20%20setTimeout(()%20%3D%3E%20%7B%0A%20%20%20%20%20%20resolve(%7Bdata%3A%20x%7D)%0A%20%20%20%20%7D%2C%202000)%0A%20%20%7D)%0A%7D%7D%0Alet%20query%20%3D%20’mangos’%0Aasync%20function%20fetchData(query)%20%7B%0A%20%20try%20%7B%0A%20%20%20%20const%20response%20%3D%20await%20axios.get(%60%2Fq%3Fquery%3D%24%7Bquery%7D%60)%0A%20%20%20%20const%20data%20%3D%20response.data%0A%20%20%09return%20data%0A%20%20%7D%20catch%20(error)%20%7B%0A%20%20%20%20console.log(error)%0A%20%20%7D%0A%7D%0AfetchData(query).then(data%20%3D%3E%20%7B%0A%20%20console.log(data)%0A%7D))，需要注意的是axios是一个mock库，使用<code>setTimeout</code>来模拟异步请求返回。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> axios = &#123;  <span class="comment">// mocks</span></span><br><span class="line">  get: <span class="function"><span class="keyword">function</span>(<span class="params">x</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(resolve =&gt; &#123;</span><br><span class="line">    setTimeout(() =&gt; &#123;</span><br><span class="line">      resolve(&#123;data: x&#125;)</span><br><span class="line">    &#125;, <span class="number">2000</span>)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;&#125;</span><br><span class="line"><span class="keyword">let</span> query = <span class="string">'mangos'</span></span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">fetchData</span>(<span class="params">query</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> response = <span class="keyword">await</span> axios.get(<span class="string">`/q?query=<span class="subst">$&#123;query&#125;</span>`</span>)</span><br><span class="line">    <span class="keyword">const</span> data = response.data</span><br><span class="line">  	<span class="keyword">return</span> data</span><br><span class="line">  &#125; <span class="keyword">catch</span> (error) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(error)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">fetchData(query).then(data =&gt; &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(data) <span class="comment">// Got data 2s later... Can use data!</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>使用了async/await，你可以以同步调用的方式来处理异步函数。这种方式更加符合从上向下的阅读习惯，并且结束输出也是从上向下顺序执行的。</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>这或多或少是所有的ES8（尚未完成）和全部的ES7（完成）。如果你使用了Bable、Traceur这类的转换器，那么不用等到浏览器支持，也可以现在就使用这些新特性。ES7和ES8会被编译成ES5的代码，即使是IE9也能够运行这些经过转换的代码。</p>
+<p>在使用ES8的特性时，需要小心下面的这些特性，因为这些特性现在虽然处于3阶段，但是可能会被从ES8标准中剔除</p>
+<ul>
+<li>Shared Memory and Atomics</li>
+<li>SIMD.JS - SIMD APIs</li>
+<li>Function.prototype.toString</li>
+<li>Lifting Template Literal Restriction</li>
+<li>global</li>
+<li>Rest/Spread Properties</li>
+<li>Asynchronous Iteration</li>
+<li>import()</li>
+</ul>
+<p>你可以在<a href="https://github.com/tc39/proposals/blob/master/README.md#active-proposals" target="_blank" rel="external">激活提案</a>和<a href="https://github.com/tc39/proposals/blob/master/finished-proposals.md" target="_blank" rel="external">完成提案</a>中了解他们的状态。（译者注，在原作者完成这篇文章后<code>Shared Memory and Atomics</code>已经被加入到了完成提案中，也就是进入到了4阶段）</p>
+<p>PS: 了解ES6/ES2015中的其他新特性，如Promise、箭头函数、let/const，可以阅读我的博客或者查看视频。</p>
+<p><img src="https://ww1.sinaimg.cn/large/006tNc79ly1fck2y6lashj30qo0f53zv.jpg" alt=""></p>
+<p>PS2: 如果你更喜欢通过视频学习，请进入Node.University的<a href="https://node.university/p/es6" target="_blank" rel="external">ES6/ES2015课程</a>，并关注即将上线的<a href="https://node.university/p/es7-es8" target="_blank" rel="external">ES7和ES8课程</a>。（译者注，目前ES7和ES8的课程已经开放了，不过仅针对于付费会员）</p>
+
+        
+        </div>
+        <footer class="article-footer">
+            <div class="share-container">
+
+
+
+</div>
+
+    <a data-url="http://yoursite.com/2017/02/09/ES7和ES8特性/" data-id="ciyxv7p4u0001zbfy1c6ygswr" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+<script>
+    (function ($) {
+        // Prevent duplicate binding
+        if (typeof(__SHARE_BUTTON_BINDED__) === 'undefined' || !__SHARE_BUTTON_BINDED__) {
+            __SHARE_BUTTON_BINDED__ = true;
+        } else {
+            return;
+        }
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="fa fa-twitter article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="fa fa-facebook article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="fa fa-pinterest article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="fa fa-google article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+            
+    
+        <a href="http://yoursite.com/2017/02/09/ES7和ES8特性/#comments" class="article-comment-link disqus-comment-count" data-disqus-url="http://yoursite.com/2017/02/09/ES7和ES8特性/">评论</a>
+    
+
+        </footer>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+    
+        <a href="/2016/12/07/JavaScript-2016-调查-—-状态管理工具/" id="article-nav-older" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">下一篇</strong>
+            <div class="article-nav-title">JavaScript 2016 调查 — 状态管理工具</div>
+        </a>
+    
+</nav>
+
+
+    
+</article>
+
+
+    
+    <section id="comments">
+    
+        
+    <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+
+    
+    </section>
+
+</section>
+            
+                <aside id="sidebar">
+   
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">最新文章</h3>
+        <div class="widget">
+            <ul id="recent-post" class="">
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2017/02/09/ES7和ES8特性/" class="thumbnail">
+    
+    
+        <span style="background-image:url(https://ww1.sinaimg.cn/large/006tNc79ly1fcgu138drlj30qo0f5mzg.jpg)" alt="ES7和ES8特性.md" class="thumbnail-image"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/2017/02/09/ES7和ES8特性/" class="title">ES7和ES8特性.md</a></p>
+                            <p class="item-date"><time datetime="2017-02-09T04:07:19.000Z" itemprop="datePublished">2017-02-09</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2016/12/07/JavaScript-2016-调查-—-状态管理工具/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/images/small.png)" alt="JavaScript 2016 调查 — 状态管理工具" class="thumbnail-image"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/2016/12/07/JavaScript-2016-调查-—-状态管理工具/" class="title">JavaScript 2016 调查 — 状态管理工具</a></p>
+                            <p class="item-date"><time datetime="2016-12-07T10:30:24.000Z" itemprop="datePublished">2016-12-07</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2016/12/06/JavaScript-2016-调查-—-前端框架/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/images/frall.png)" alt="JavaScript 2016 调查 — 前端框架" class="thumbnail-image"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/2016/12/06/JavaScript-2016-调查-—-前端框架/" class="title">JavaScript 2016 调查 — 前端框架</a></p>
+                            <p class="item-date"><time datetime="2016-12-06T11:33:11.000Z" itemprop="datePublished">2016-12-06</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2016/12/02/JavaScript-2016-调查-—-JavaScript语言规范/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/images/all.png)" alt="JavaScript 2016 调查 — JavaScript语言规范" class="thumbnail-image"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/2016/12/02/JavaScript-2016-调查-—-JavaScript语言规范/" class="title">JavaScript 2016 调查 — JavaScript语言规范</a></p>
+                            <p class="item-date"><time datetime="2016-12-02T08:19:10.000Z" itemprop="datePublished">2016-12-02</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2016/12/02/JavaScript-2016-调查-——-介绍/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/images/javascript9.svg)" alt="JavaScript 2016 调查 — 介绍" class="thumbnail-image"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/2016/12/02/JavaScript-2016-调查-——-介绍/" class="title">JavaScript 2016 调查 — 介绍</a></p>
+                            <p class="item-date"><time datetime="2016-12-02T07:27:03.000Z" itemprop="datePublished">2016-12-02</time></p>
+                        </div>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+    
+        
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">归档</h3>
+        <div class="widget">
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">二月 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">十二月 2016</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">九月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">四月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">二月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">一月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">十二月 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">十一月 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">十月 2015</a><span class="archive-list-count">1</span></li></ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">标签</h3>
+        <div class="widget">
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Angular/">Angular</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Angular2/">Angular2</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ES6/">ES6</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Github/">Github</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IE浏览器/">IE浏览器</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript-2016/">JavaScript 2016</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/React/">React</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TypeScript/">TypeScript</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Vue/">Vue</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Vue2/">Vue2</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/badge/">badge</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/coverage/">coverage</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/coveralls/">coveralls</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/css/">css</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/es7/">es7</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/es8/">es8</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gitflow/">gitflow</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/">github</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github-flow/">github flow</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gitlab/">gitlab</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/istanbul/">istanbul</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/node/">node</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/test/">test</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vows/">vows</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/兼容性/">兼容性</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/前端框架/">前端框架</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/包管理工具/">包管理工具</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/工作实践/">工作实践</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/测试/">测试</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/语言规范/">语言规范</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/－javascript-node-es6/">－javascript - node - es6</a><span class="tag-list-count">1</span></li></ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">标签云</h3>
+        <div class="widget tagcloud">
+            <a href="/tags/Angular/" style="font-size: 10px;">Angular</a> <a href="/tags/Angular2/" style="font-size: 10px;">Angular2</a> <a href="/tags/ES6/" style="font-size: 10px;">ES6</a> <a href="/tags/Github/" style="font-size: 10px;">Github</a> <a href="/tags/IE浏览器/" style="font-size: 10px;">IE浏览器</a> <a href="/tags/JavaScript-2016/" style="font-size: 20px;">JavaScript 2016</a> <a href="/tags/React/" style="font-size: 10px;">React</a> <a href="/tags/TypeScript/" style="font-size: 10px;">TypeScript</a> <a href="/tags/Vue/" style="font-size: 10px;">Vue</a> <a href="/tags/Vue2/" style="font-size: 10px;">Vue2</a> <a href="/tags/badge/" style="font-size: 10px;">badge</a> <a href="/tags/coverage/" style="font-size: 10px;">coverage</a> <a href="/tags/coveralls/" style="font-size: 10px;">coveralls</a> <a href="/tags/css/" style="font-size: 15px;">css</a> <a href="/tags/es7/" style="font-size: 10px;">es7</a> <a href="/tags/es8/" style="font-size: 10px;">es8</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/gitflow/" style="font-size: 10px;">gitflow</a> <a href="/tags/github/" style="font-size: 15px;">github</a> <a href="/tags/github-flow/" style="font-size: 10px;">github flow</a> <a href="/tags/gitlab/" style="font-size: 10px;">gitlab</a> <a href="/tags/istanbul/" style="font-size: 10px;">istanbul</a> <a href="/tags/js/" style="font-size: 15px;">js</a> <a href="/tags/node/" style="font-size: 15px;">node</a> <a href="/tags/test/" style="font-size: 10px;">test</a> <a href="/tags/vows/" style="font-size: 10px;">vows</a> <a href="/tags/兼容性/" style="font-size: 10px;">兼容性</a> <a href="/tags/前端框架/" style="font-size: 10px;">前端框架</a> <a href="/tags/包管理工具/" style="font-size: 10px;">包管理工具</a> <a href="/tags/工作实践/" style="font-size: 10px;">工作实践</a> <a href="/tags/测试/" style="font-size: 10px;">测试</a> <a href="/tags/语言规范/" style="font-size: 10px;">语言规范</a> <a href="/tags/－javascript-node-es6/" style="font-size: 10px;">－javascript - node - es6</a>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">链接</h3>
+        <div class="widget">
+            <ul>
+                
+                    <li>
+                        <a href="http://hexo.io">Hexo</a>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+
+    
+    <div id="toTop" class="fa fa-angle-up"></div>
+</aside>
+            
+        </div>
+        <footer id="footer">
+    <div class="outer">
+        <div id="footer-info" class="inner">
+            &copy; 2017 Yan Yu<br>
+            Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>. Theme by <a href="http://github.com/ppoffice">PPOffice</a>
+        </div>
+    </div>
+</footer>
+        
+    
+    <script>
+    var disqus_config = function () {
+        
+            this.page.url = 'http://yoursite.com/2017/02/09/ES7和ES8特性/';
+        
+        this.page.identifier = 'ES7和ES8特性';
+    };
+    (function() { 
+        var d = document, s = d.createElement('script');  
+        s.src = '//' + 'hexo-theme-icarus' + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+
+
+
+    
+        <script src="/vendor/fancybox/jquery.fancybox.pack.js"></script>
+    
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+</body>
+</html>
