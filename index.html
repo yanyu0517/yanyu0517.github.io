@@ -143,11 +143,11 @@
         </div>
         <div class="article-info profile-block">
             <div class="article-info-block">
-                14
+                15
                 <span>文章</span>
             </div>
             <div class="article-info-block">
-                33
+                34
                 <span>标签</span>
             </div>
         </div>
@@ -178,6 +178,344 @@
 
             
             <section id="main">
+    <article id="post-编码到底怎么回事" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+        
+            <header class="article-header">
+                
+    
+        <h1 itemprop="name">
+            <a class="article-title" href="/2017/08/25/编码到底怎么回事/">编码到底怎么回事</a>
+        </h1>
+    
+
+                <div class="article-meta">
+                    
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/2017/08/25/编码到底怎么回事/">
+            <time datetime="2017-08-25T04:47:08.000Z" itemprop="datePublished">2017-08-25</time>
+        </a>
+    </div>
+
+
+                    
+                    
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/－unicode-gbk-utf8-utf16-encoding/">－unicode -gbk -utf8 -utf16 -encoding</a>
+    </div>
+
+                </div>
+            </header>
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            
+            <h1 id="编码到底怎么回事"><a href="#编码到底怎么回事" class="headerlink" title="编码到底怎么回事"></a>编码到底怎么回事</h1><h2 id="什么是编码"><a href="#什么是编码" class="headerlink" title="什么是编码"></a>什么是编码</h2><blockquote>
+<p>字符编码（英语：Character encoding）、字集码是把字符集中的字符编码为指定集合中某一对象（例如：比特模式、自然数序列、8位组或者电脉冲），以便文本在计算机中存储和通过通信网络的传递。</p>
+</blockquote>
+<p>上面是维基百科中文对字符编码的定义，看起来会很抽象，其实在我们平时生活和开发中，编码可以说是无处不在。简单的在 windows 中新建一个记事本会用到编码，复杂的如摩尔斯电码也是一种编码。对于普通人来说编码可能对于他们来说并没有什么意义，也不会感觉到不同编码之间的差异，而我们作为软件领域的从业者，编码与我们的工作息息相关。</p>
+<p>无论是FE还是后端开发、OP 甚至 DBA 在日常工作中经常会遇到编码所引起的问题，如页面乱码无法正常显示，IE6 下部分 CSS 样式无法解析，数据库中文乱码影响读写，部署 Tomcat 接收到中文乱码等等都是由编码引起的。大多数问题通过把编码或者字符集设置为 UTF-8 即可解决。那么究竟 UTF-8 是什么编码能有这么神（niu）奇（x）的作用呢。除了 UTF-8 还有那些编码呢？下面让我们看看编码到底是怎么回事。</p>
+<h2 id="1-ASCII"><a href="#1-ASCII" class="headerlink" title="1.ASCII"></a>1.ASCII</h2><p>ASCII 的英文全称是 American Standard Code for Information Interchange，中文译为“美国信息互换标准代码”。它是由 ASNI（AmericanNational Standards Institute，美国国家标准学会）推出的一个用 128 个字符描述控制码、数字、符号、英文大小写的字节存储方案。128 这个数字程序员看起来很敏感，128 代表的是 7 位的二进制，也就是 0-127 种状态，换言之，ASCII就是用数字 0-127 来表示了英文世界中所有的文字和符号（需要注意的是，一个字节是8位的，而ascii只用了一个字节的7位，因此最高位用0作为占位）。其中33个字符无法显示（一些终端提供了扩展，使得这些字符可显示为诸如笑脸、扑克牌花式等8-bit符号），在33个字符之外的是95个可显示的字符。</p>
+<p>这95个可显字符中又分为了控制字符和可显示字符，</p>
+<ul>
+<li>控制字符<br>摘自维基百科中文版：<a href="https://zh.wikipedia.org/wiki/%E6%8E%A7%E5%88%B6%E5%AD%97%E7%AC%A6" target="_blank" rel="external">控制字符</a></li>
+</ul>
+<blockquote>
+<p>控制字符，是出现在特定的信息文本中，表示某一控制功能的字符。<br>在计算中，一个控制字符或非打印字符，是一个代码标示（一个数字）是否在字符集，其自身也是书写字母来描述的。所有输出在32以下的ASCII表都是这个类型，包括<br>1） BEL（要求有声信号来响应终端的接收）；<br>2） SYN（同步信号）；<br>3） ENQ（要求接收后发出响应来验证存在）；<br>4） Unicode标准增加了许多新的非打印字符，比如Zero-Width Non-Joiner。</p>
+</blockquote>
+<p>控制字符ASCII码表如下</p>
+<p><img src="https://ww2.sinaimg.cn/large/006tNc79ly1fibkxk7ws4j30rk14q7e7.jpg" alt=""></p>
+<p>上表中的控制字符，都可以在word中以unicode的方式显示出来，只需要切换到微软的任意一款输入法，之后输入`U24 + 控制字符对应的十六进制即可，如想打印␀就输入`U2400，想打印␊则输入`240A。</p>
+<ul>
+<li>可显示字符</li>
+</ul>
+<p>可显示字符则可以直接通过键盘输入，如空格、英文字母等</p>
+<p>可显示ASCII码表如下</p>
+<p><img src="https://ww3.sinaimg.cn/large/006tNc79ly1fiblcaghmyj313n1bjasd.jpg" alt=""></p>
+<p>我们平时接触到的ASCII的地方：（欢迎补漏）</p>
+<p>1、我们如何在网页中打印ASCII？</p>
+<p>只需要在html中输入 <code>&amp;#</code> + ASCII对应的十进制 + <code>;</code> 便可以在网页中打印对应的符号或者文字。输入 <code>&amp;#97;</code> 就可以看到小写的<code>a</code>字母。需要注意一点的是，网页中只能正常显示可显示字符，控制字符因为大多与设备有关，是无法被打印的，强行输入控制字符对应的编码会显示为乱码或者空格。</p>
+<p>2、关于keycode</p>
+<p>浏览器的 <code>keydown</code>、<code>keyup</code> 和 <code>keypress</code> 都提供了 <code>keycode</code> 表示当前触发了哪个键位。但是这其中会有些区别，当我们输入大写字母 <code>A</code> 时(同时按下 <code>shift</code> 和 <code>a</code> 或者打开 <code>caps lock</code>)，<code>keydown</code>、<code>keyup</code>  和 <code>keypress</code> 的 <code>keycode</code> 都是 65，也就是 <code>A</code> 对应的 ascii 码，而当我们按下字母<code>a</code>，<code>keydown</code>和<code>keyup</code> 的 <code>keycode</code> 仍然是 65，而 <code>keypress</code> 是 97。<code>a</code> 的 ascii 是 97</p>
+<p><code>keydown</code> 和 <code>keyup</code> 对于组合键并不能正确的获得键位的ascii。下面的键位的 <code>keycode</code> 在<code>keydown</code> 和 <code>keyup</code> 中都是冲突的</p>
+<figure class="highlight basic"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">188 </span>, &lt;</span><br><span class="line"><span class="symbol">190 </span>. &gt;</span><br><span class="line"><span class="symbol">191 </span>/ ?</span><br><span class="line"><span class="symbol">192 </span>` ~</span><br><span class="line"><span class="symbol">219 </span>[ &#123;</span><br><span class="line"><span class="symbol">220 </span>\ |</span><br><span class="line"><span class="symbol">221 </span>] &#125;</span><br><span class="line"><span class="symbol">222 </span>‘ “</span><br></pre></td></tr></table></figure>
+<p>所以如果想获得键位正确的ascii码，也就是 <code>keycode</code>，请使用 <code>keypress</code></p>
+<p><a href="https://www.west-wind.com/WestwindWebToolkit/samples/Ajax/html5andCss3/keycodechecker.aspx" target="_blank" rel="external">https://www.west-wind.com/WestwindWebToolkit/samples/Ajax/html5andCss3/keycodechecker.aspx</a></p>
+<p>3、如何把ascii(unicode)转换成字符串</p>
+<figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">String</span>.fromCharCode(<span class="number">97</span>) <span class="comment">// 'a'</span></span><br><span class="line"><span class="keyword">String</span>.fromCharCode(<span class="number">65</span>) <span class="comment">// 'A'</span></span><br></pre></td></tr></table></figure>
+<p>4、如何把字符转换成ascii(unicode)</p>
+<figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'a'</span>.charCodeAt() <span class="comment">//97</span></span><br><span class="line"><span class="string">'a'</span>.codePointAt() <span class="comment">//97</span></span><br></pre></td></tr></table></figure>
+<h2 id="2-GB2312"><a href="#2-GB2312" class="headerlink" title="2.GB2312"></a>2.GB2312</h2><p>ASCII 出现后极大的解决了英语国家（美国）在计算机编码方面的问题，但随着时间的发展，计算机逐步普及，从早期的军事用途转向商用并最终走进个人PC时代，非英语国家的人需要使用计算机就需要让计算机认识他们国家的文字，上文说过ASCII只用到了 0 到 127 位，128 位到 255 位处于空闲状态。那么这 128 位就用来表示后进入计算机领域的那些国家的文字以及符号。这被称为<code>扩展字符集</code>。</p>
+<p>当扩展字符集用完了之后，仍然有很多国家需要加入自己的文字，比如中国，汉字与英文不同，无法通过字母组合来形成一个单词，每个字都是独立的，一共有 6000 多汉字需要有自己的编码。<br>很明显，单个字节无法满足中文的编码要求，因此逐渐的开始使用多个字节来标识非英文的字符。</p>
+<p>仍然以中文为例，如果用两个字节来标识中文，除去 ASCII 原生的 127 位之外，理论上剩余的 256 * 256 - 127 = 65408 位都可以用来表示中文。这种编码方式就是我们熟悉的 GB2312，全称为《《信息交换用汉字编码字符集·基本集》》，由于是 1980 年提出的，因此又被称为 GB2312-80。</p>
+<blockquote>
+<p>GB 2312标准共收录6763个汉字，其中一级汉字3755个，二级汉字3008个；同时收录了包括拉丁字母、希腊字母、日文平假名及片假名字母、俄语西里尔字母在内的682个字符。<br>GB 2312的出现，基本满足了汉字的计算机处理需要，它所收录的汉字已经覆盖中国大陆99.75%的使用频率。但对于人名、古汉语等方面出现的罕用字和繁体字，GB 2312不能处理，因此后来GBK及GB 18030汉字字符集相继出现以解决这些问题。</p>
+</blockquote>
+<p>摘自<a href="https://zh.wikipedia.org/wiki/GB_2312" target="_blank" rel="external">维基百科中文</a>，在教育部语言信息文字管理司的网页中可以下载到<a href="http://www.moe.edu.cn/s78/A19/yxs_left/moe_810/s230/201206/t20120601_136847.html" target="_blank" rel="external">电子版</a>的 GB2312 标准。</p>
+<p>虽然 GB2312 使用了两个字节表示中文，但是并没有如我们预期的一样能表示60000+的汉字，这是因为在 GB2312 的标准中每个汉字及符号以两个字节来表示。第一个字节称为“高位字节”，第二个字节称为“低位字节”。“高位字节”使用了0xA1–0xF7（把01–87区的区号加上0xA0），“低位字节”使用了0xA1–0xFE（把01–94加上0xA0）。能够表示 7000+ 的字符。对于一些生僻字和繁体字则不在 GB2312 的标准内。</p>
+<p>GB2312 从发布后没有进行过修订，而是针对需要修订的内容提出了新的字符集，其中最有名的就是 GBK，全称为《汉字内码扩展规范(GBK)》1.0版。</p>
+<blockquote>
+<p>由于GB 2312-80只收录6763个汉字，有不少汉字，如部分在GB 2312-80推出以后才简化的汉字（如“啰”），部分人名用字（如中国前总理朱镕基的“镕”字），台湾及香港使用的繁体字，日语及朝鲜语汉字等，并未有收录在内。于是厂商微软利用GB 2312-80未使用的编码空间，收录GB 13000.1-93全部字符制定了GBK编码。</p>
+</blockquote>
+<p>GBK是对GB2312-80的扩展，并向下兼容 GB2312。</p>
+<p>需要注意的一点是GBK并不是国家标准，只是“技术规范指导性文件”，据说当时我国推出了建议性标准gb13000，建议微软采用该标准。但是微软为了取得垄断市场的地位，自己搞了一套中文编码标准，也就是GBK，win95上就采用了GBK，随着office和windows的普及，GBK已经占有了很大的市场份额，国家不得不默认了GBK的存在，这也就是为什么GBK不是国家标准的原因。</p>
+<p>从此之后，程序员经常说的一句话就是：“一个汉字两个字节”</p>
+<p>最后，感谢朱总理</p>
+<h2 id="3-Unicode"><a href="#3-Unicode" class="headerlink" title="3.Unicode"></a>3.Unicode</h2><h3 id="3-1-历史"><a href="#3-1-历史" class="headerlink" title="3.1 历史"></a>3.1 历史</h3><p>虽然我们用GBK解决了中文的问题，但是世界上每种文字都搞了一套类似于GBK的编码方案。那么就会造成了互相无法识别的情况。</p>
+<p>于是，一个叫做 ISO（International Organization for Standardization，国际标准化组织） 的机构制定了一套USC（Universal Character Set，通用字符集），也被称为 ISO 10646（或称ISO/IEC 10646）</p>
+<blockquote>
+<p>UCS包含了已知语言的所有字符。除了拉丁语、希腊语、斯拉夫语、希伯来语、阿拉伯语、亚美尼亚语、格鲁吉亚语，还包括中文、日文、韩文这样的方块文字，UCS还包括大量的图形、印刷、数学、科学符号。</p>
+</blockquote>
+<p>同时有另外一个组织也在做同样的事情，Xerox、Apple等软件制造商创立的<a href="https://zh.wikipedia.org/wiki/%E7%B5%B1%E4%B8%80%E7%A2%BC%E8%81%AF%E7%9B%9F" target="_blank" rel="external">统一码联盟</a>。</p>
+<p>在1991年的时候，这两个组织意识到了，并不需要两种单一字符集，因此开始在一起合并，共享工作成果，共同制定唯一的单一字符集 <a href="https://zh.wikipedia.org/zh-sg/Unicode" target="_blank" rel="external">Unicode</a>。1991年推出Unicode1.0，其中不包含CJK字符集，1993年推出了Unicode1.1，把CJK字符集纳入其中。</p>
+<blockquote>
+<p>Unicode（中文：万国码、国际码、统一码、单一码）是计算机科学领域里的一项业界标准。它对世界上大部分的文字系统进行了整理、编码，使得电脑可以用更为简单的方式来呈现和处理文字。</p>
+</blockquote>
+<p>Unicode 是一个不断演变和发展的字符集，截止到本文撰写时（2017.8），Unicode 最新版为<a href="http://www.unicode.org/versions/Unicode10.0.0/" target="_blank" rel="external">10.0</a>版本。 </p>
+<h3 id="3-2-编码方式"><a href="#3-2-编码方式" class="headerlink" title="3.2 编码方式"></a>3.2 编码方式</h3><p>目前 Unicode 分为17组编码（平面），每组编码为16位，也就是用于65536个字符。第一组（0号平面）被称为基本多文种平面（Basic Multilingual Plane，简称BMP），表示从U+0000至U+FFFF，剩余16组被称为辅助平面，这些辅助平面中仅使用了少数平面</p>
+<p><img src="https://ws3.sinaimg.cn/large/006tKfTcly1fiku5mr6oqj316q0fewkp.jpg" alt=""></p>
+<p>从上表中，我们可以看到，Unicode 17个平面表示从U+0000至U+10FFFF，一共占据了21位的编码空间，也就是2个多字节，不到3个字节。Unicode 未来的版本计划扩充到32位，也就是占据4个字节的空间，这将覆盖所有语言和符号。</p>
+<h3 id="3-3-实现方式"><a href="#3-3-实现方式" class="headerlink" title="3.3 实现方式"></a>3.3 实现方式</h3><p>Unicode 除了编码方式之外还有另外一个概念：实现方式。对于一个固定的字符，其 Unicode 的编码是不会改变的，但是实现方式在传输过程中会因为不同系统平台的设计和节省空间的考虑，有所不同。Unicode 编码的实现方式也被称为Unicode转换格式（Unicode Transformation Format），也就是我们熟悉的 UTF。</p>
+<p>上面讲了Unicode的0号平面是从0x0000到0xFFFF，一共占有16位也就是2个字节，那么对于一个ascii码来说，它仅有7位，如果仍然用2个字节的Unicode来表示，明显会浪费了至少9位的空间。针对这种问题，Unicode 提出了 UTF-8，这是一种可变长度的 Unicode 编码的<strong>实现方式</strong>。也就是说 Unicode 的编码是唯一的，但是如何存储二进制编码，则可以根据不同的实现方式，灵活设计，达到节省空间的目的。其中最著名也是最流行的实现方式就是 UTF-8 和 UTF-16（分为大序端和小序端）</p>
+<h3 id="3-4-UTF-8"><a href="#3-4-UTF-8" class="headerlink" title="3.4 UTF-8"></a>3.4 UTF-8</h3><p>首先需要记住，无论是UTF-8还是UTF-16，都只是Unicode的一种实现方式而已。<a href="https://zh.wikipedia.org/wiki/UTF-8" target="_blank" rel="external">维基百科中文版</a>的定义如下：</p>
+<blockquote>
+<p>UTF-8（8-bit Unicode Transformation Format）是一种针对Unicode的可变长度字符编码，也是一种前缀码。它可以用来表示Unicode标准中的任何字符，且其编码中的第一个字节仍与ASCII兼容，这使得原来处理ASCII字符的软件无须或只须做少部分修改，即可继续使用。因此，它逐渐成为电子邮件、网页及其他存储或发送文字的应用中，优先采用的编码。</p>
+</blockquote>
+<p>UTF-8使用1-4个字节为 Unicode 编码，编码规则及所占空间如下表所示：</p>
+<table>
+<thead>
+<tr>
+<th>char</th>
+<th>size</th>
+<th>Unicode </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ascii</td>
+<td>1个字节</td>
+<td>U+0000至U+007F</td>
+</tr>
+<tr>
+<td>附加符号的拉丁文、希腊文、西里尔字母、亚美尼亚语、希伯来文、阿拉伯文、叙利亚文及它拿字母</td>
+<td>2个字节</td>
+<td>U+0800至U+FFFF</td>
+</tr>
+<tr>
+<td>BMP（0号平面）中的其他字符（大部分中文）</td>
+<td>3个字节</td>
+<td>U+0800至U+FFFF</td>
+</tr>
+<tr>
+<td>极少使用的辅助平面内的字符</td>
+<td>4个字节</td>
+<td>U+10000至U+1FFFFF</td>
+</tr>
+</tbody>
+</table>
+<h4 id="UTF-8编码"><a href="#UTF-8编码" class="headerlink" title="UTF-8编码"></a>UTF-8编码</h4><blockquote>
+<p>   •    对于UTF-8编码中的任意字节B，如果B的第一位为0，则B独立的表示一个字符(ASCII码)；<br>    •    如果B的第一位为1，第二位为0，则B为一个多字节字符中的一个字节(非ASCII字符)；<br>    •    如果B的前两位为1，第三位为0，则B为两个字节表示的字符中的第一个字节；<br>    •    如果B的前三位为1，第四位为0，则B为三个字节表示的字符中的第一个字节；<br>    •    如果B的前四位为1，第五位为0，则B为四个字节表示的字符中的第一个字节；</p>
+</blockquote>
+<p><strong>Unicode 与 UTF-8 的转换关系</strong></p>
+<p><img src="https://ws2.sinaimg.cn/large/006tKfTcly1fin5qxb3z0j31bc0aitd0.jpg" alt=""></p>
+<p>首先如果字符是在ascii码的范围内，其UTF-8的编码以一个字节表示，全部以0开头，剩余7位以ascii码补全即可。以a为例，ascii码为97（1100001），对应的 UTF-8编码为01100001</p>
+<p>剩余其他字符，也就是非单字节，则第一个字节的首位会以1开头，有多少个字节则会有多少个1，并伴随一个0，其他字节则以10开头。例如3字节，那么首字节以1110开头，第二个字节和第三个字节则以10开头。4字节，首字节以11110开头，第二、三、四字节仍然以10开头。</p>
+<p>以中文“尚德”的“尚”字举例，对于UTF-8，大部分中文都是3个字节，那么就是1110xxxx 10xxxxxx 10xxxxxx 的形式。“尚”字的 Unicode是\u5c1a（101 1100 0001 1010），把其从后向前依次填充到 UTF-8 的编码中，不足的以0补齐，得到的“尚”字的 UTF-8 编码即为 11100101 10110000 10011010，十六进制为c5b09a，一共三个字节。</p>
+<p>如何使用js获得一个字符的utf-8编码呢？最简单的方式就是使用encodeURIComponent，这是因为根据 URI 的规范，查询参数必须是UTF-8编码，这也就是为什么我们需要对get请求中的中文参数做encodeURIComponent处理。而javascript是基于Unicode编码的UTF-16来实现的，因此浏览器为我们提供了这样一个方法，能够把中文转换成UTF-8，只不过每个字节之间用%分割。</p>
+<figure class="highlight perl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">encodeURIComponent(<span class="string">'尚'</span>) //<span class="string">"%E5%B0%9A"</span></span><br></pre></td></tr></table></figure>
+<h3 id="3-5-UTF-16"><a href="#3-5-UTF-16" class="headerlink" title="3.5 UTF-16"></a>3.5 UTF-16</h3><p>如我们在介绍UTF-8时说提到的，UTF-16也是Unicode的一种实现。<a href="https://zh.wikipedia.org/wiki/UTF-16" target="_blank" rel="external">维基百科中文版</a>的定义如下：</p>
+<blockquote>
+<p>UTF-16是Unicode字符编码五层次模型的第三层：字符编码表（Character Encoding Form，也称为”storage format”）的一种实现方式。即把Unicode字符集的抽象码位映射为16位长的整数（即码元）的序列，用于数据存储或传递。Unicode字符的码位，需要1个或者2个16位长的码元来表示，因此这是一个变长表示。</p>
+</blockquote>
+<p>首先我们需要知道一点，在0号平面（U+0000 - U+FFFF）中，从U+D800到U+DFFF是保留位，不会用来表示任何的Unicode，而UTF-16正是利用这2048个保留位来进行编码。</p>
+<p>UTF-16 与 UTF-8 不同，UTF-8是可变长度的，而UTF-16则结合了可变长度编码与不可变长度编码</p>
+<h4 id="UTF-16编码"><a href="#UTF-16编码" class="headerlink" title="UTF-16编码"></a>UTF-16编码</h4><p><img src="https://ws3.sinaimg.cn/large/006tKfTcly1fioxjkol5pj30g902sq3h.jpg" alt=""></p>
+<p><strong>BMP/0号平面</strong></p>
+<p>BMP是从U+0000到U+FFFF，除去我们上面提到的保留位（U+D800到U+DFFF），其余从U+0000至U+D7FF以及从U+E000至U+FFFF，都是直接使用Unicode编码。</p>
+<p>也就是说，在BMP的字符，其UTF-16编码占2位</p>
+<p><strong>辅助平面</strong></p>
+<p>从从U+10000到U+10FFFF都被认为是辅助平面，对于辅助平面中的字符，UTF-16将会把其编码为一堆16比特长的码元，也就是4个字节，被称为代理对。</p>
+<p>具体算法如下：</p>
+<ul>
+<li>step1: Unicode 减去0x10000，辅助平面的范围变为U+00000到U+FFFFF，从21位变为20位</li>
+<li>step2：对这20个字节，高10位的（Unicode范围：U+400 - U+FFFF，值的范围：0x0000 - 0x3FF）加0xD800，得到的新码位被称为高位代理或者前导代理，Unicode范围是U+D800到U+DBFF</li>
+<li>step3：20个字节中，低10位的（Unicode范围：U+0000 - U+3FF，值的范围：0x0000 - 0x3FF）加0xDC00，得到的新码位被称为低位代理或者后尾代理，Unicode范围是U+DC00到U+DFFF</li>
+<li>把高位代理和低位代理组合在一起，Unicode范围是U+D800到U+DFFF，也就是BMP中的保留位，UTF-16也就是使用这2048个码位进行编码的</li>
+</ul>
+<p>Unicode 3.0 给出了一个用于计算落在辅助平面字符的UTF-16编码的公式：</p>
+<figure class="highlight gcode"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">H = Math.floor<span class="comment">((c-0x10000)</span> / <span class="number">0</span>x<span class="number">400</span>)<span class="number">+0</span>xD<span class="number">800</span> <span class="comment">// 前导代理</span></span><br><span class="line">L = = <span class="comment">(c - 0x10000)</span> <span class="meta">%</span> <span class="number">0</span>x<span class="number">400</span> + <span class="number">0</span>xDC<span class="number">00</span> <span class="comment">// 后尾代理</span></span><br></pre></td></tr></table></figure>
+<p>例如U+10437编码（𐐷）:</p>
+<figure class="highlight dns"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">H = Math.floor((<span class="number">0x10437</span>-<span class="number">0x10000</span>) / <span class="number">0</span>x400)+<span class="number">0</span>xD800 = <span class="number">0</span>xD801</span><br><span class="line">L = (<span class="number">0x10437</span> - <span class="number">0x10000</span>) % <span class="number">0</span>x400 + <span class="number">0</span>xDC00 = <span class="number">0</span>xDC37</span><br></pre></td></tr></table></figure>
+<p>把H和L拼在一起得到UTF-16编码为D801 DC37</p>
+<p>下面的表总结了几种字符如何编码到UTF-16，绿色代表前导代理，蓝色代表后尾代理，黑色表示编码过程中加入的附加码</p>
+<p><img src="https://ws1.sinaimg.cn/large/006tKfTcly1fioxil47vhj30sc05175v.jpg" alt=""></p>
+<h4 id="字节顺序"><a href="#字节顺序" class="headerlink" title="字节顺序"></a>字节顺序</h4><p>UTF-16的分类有两种，分别对应的是UTF-16BE 和 UTF-16LE。</p>
+<p>UTF-16BE 也被称为大端序，其编码与UTF-16一致。UTF-16LE被称为小端序，其编码与UTF-16是倒序的。比如U+0024的UTF-16编码为0024，UTF-16BE为00 24 为UTF-16LE则为24 00。那么到底是什么决定了字节顺序呢？首先让我们了解一下什么是字节顺序，<a href="https://zh.wikipedia.org/wiki/%E5%AD%97%E8%8A%82%E5%BA%8F" target="_blank" rel="external">维基百科中文版</a>定义如下：</p>
+<blockquote>
+<p>在几乎所有的机器上，多字节对象都被存储为连续的字节序列。例如在C语言中，一个类型为int的变量x地址为0x100，那么其对应地址表达式&amp;x的值为0x100。且x的四个字节将被存储在存储器的0x100, 0x101, 0x102, 0x103位置。[1]<br>而存储地址内的排列则有两个通用规则。一个多位的整数将按照其存储地址的最低或最高字节排列。如果最低有效位在最高有效位的前面，则称小端序；反之则称大端序。在网络应用中，字节序是一个必须被考虑的因素，因为不同机器类型可能采用不同标准的字节序，所以均按照网络标准转化。</p>
+</blockquote>
+<p>为什么会被称为端（endian）呢？</p>
+<blockquote>
+<p>“endian”一词来源于十八世纪爱尔兰作家乔纳森·斯威夫特（Jonathan Swift）的小说《格列佛游记》（Gulliver’s Travels）。小说中，小人国为水煮蛋该从大的一端（Big-End）剥开还是小的一端（Little-End）剥开而争论，争论的双方分别被称为“大端派”和“小端派”。以下是1726年关于大小端之争历史的描述：<br>   我下面要告诉你的是，Lilliput和Blefuscu这两大强国在过去36个月里一直在苦战。战争开始是由于以下的原因：我们大家都认为，吃鸡蛋前，原始的方法是打破鸡蛋较大的一端，可是当今皇帝的祖父小时候吃鸡蛋，一次按古法打鸡蛋时碰巧将一个手指弄破了。因此他的父亲，当时的皇帝，就下了一道敕令，命令全体臣民吃鸡蛋时打破鸡蛋较小的一端，违令者重罚。老百姓们对这项命令极其反感。历史告诉我们，由此曾经发生过6次叛乱，其中一个皇帝送了命，另一个丢了王位。这些叛乱大多都是由Blefuscu的国王大臣们煽动起来的。叛乱平息后，流亡的人总是逃到那个帝国去寻求避难。据估计，先后几次有11000人情愿受死也不肯去打破鸡蛋较小的一端。关于这一争端，曾出版过几百本大部著作，不过大端派的书一直是受禁的，法律也规定该派任何人不得做官。”<br>1980年，丹尼·科恩（Danny Cohen），一位网络协议的早期开发者，在其著名的<a href="https://zh.wikipedia.org/wiki/%E8%AE%BA%E6%96%87" target="_blank" rel="external">论文</a>“On Holy Wars and a Plea for Peace”中，为平息一场关于字节该以什么样的顺序传送的争论，而第一次引用了该词。</p>
+</blockquote>
+<ul>
+<li>BE示例</li>
+</ul>
+<p><img src="https://ws4.sinaimg.cn/large/006tKfTcly1fioyejfza0j307301yaa2.jpg" alt=""></p>
+<p>最高位字节0x0A被存储在最低的内存地址中</p>
+<ul>
+<li>LE示例</li>
+</ul>
+<p><img src="https://ws2.sinaimg.cn/large/006tKfTcly1fioyfw8cf7j307901laa1.jpg" alt=""></p>
+<p>最低位字节0x0D储存在最低的内存地址中</p>
+<p><strong>网络序</strong></p>
+<p>网络传输中，一般都选择大端序BE，这被称为网络序。IP协议中定义为BE为网络字节序。</p>
+<h2 id="4-JavaScript-编码"><a href="#4-JavaScript-编码" class="headerlink" title="4.JavaScript 编码"></a>4.JavaScript 编码</h2><h3 id="4-1-UCS"><a href="#4-1-UCS" class="headerlink" title="4.1 UCS"></a>4.1 UCS</h3><p>我们在3.1小节关于Unicode的历史中，曾经提到过UCS是由国际标准化组织（ISO）创建的，与苹果等公司创建的Unicode互相兼容。两者独立存在并公布各自的标准，但是两者是互相兼容的，ISO也承诺UCS将不会替超出U+10FFFF的UCS-4编码赋值，以使得两者保持一致。</p>
+<p>UCS分为UCS-2和UCS-4.</p>
+<ul>
+<li>UCS-2对应Unicode中的UTF-16编码，UCS-2是UTF-16的字节，对应0号平面的UTF-16编码，小于0x10000的UCS码，UTF-16编码就等于UCS码，UCS-2占有2位字节</li>
+<li>UCS-4对应Unicode中的UTF-32编码，最大可以编码到7FFFFFFF，UCS-4占有32位字节</li>
+</ul>
+<p>JavaScript的字符集是Unicode，并采用了UCS-2的编码方式，也就是双字节UTF-16，除了保留为U+D800到U+DFFF直接使用Unicode编码。这导致JavaScript在识别多于两个字节字符（辅助平面字符）的时候，会把该字符当成两个双字节字符处理。</p>
+<h3 id="4-2-String-API"><a href="#4-2-String-API" class="headerlink" title="4.2 String API"></a>4.2 String API</h3><ul>
+<li>String.fromCharCode 和 String.prototype.charCodeAt</li>
+</ul>
+<p><strong>String.fromCharCode</strong></p>
+<p>如1.ASCII中说介绍，<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/fromCharCode" target="_blank" rel="external">String.fromCharCode</a>会返回指定Unicode所对应的字符</p>
+<blockquote>
+<p>The static String.fromCharCode() method returns a string created by using the specified sequence of Unicode values.</p>
+</blockquote>
+<p>但是由于JavaScript采用的是UCS-2编码，因此String.fromCharCode只能返回双字节，对于一些特殊有两个双字节组成的字符，只能处理其后面的双字节</p>
+<figure class="highlight xl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//双字节字符</span></span><br><span class="line">S<span class="function"><span class="title">tring</span>.fromCharCode(65, 66, 67);  // -&gt;</span> <span class="string">"ABC"</span></span><br><span class="line">S<span class="function"><span class="title">tring</span>.fromCharCode(0x5C1A) // -&gt;</span> <span class="string">"尚"</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//两个双字节字符</span></span><br><span class="line"><span class="comment">//0x5C1A Unicode对应的是尚</span></span><br><span class="line"><span class="comment">//0X15C1A Unicode对应的是，但是用String.fromCharCode只能识别后面的双字节，也就是5C1A</span></span><br><span class="line">S<span class="function"><span class="title">tring</span>.fromCharCode(0x15C1A) // -&gt;</span> <span class="string">"尚"</span></span><br><span class="line">S<span class="function"><span class="title">tring</span>.fromCharCode(0x115C1A) // -&gt;</span> <span class="string">"尚"</span></span><br></pre></td></tr></table></figure>
+<p><strong>String.prototype.charCodeAt</strong></p>
+<p><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/charCodeAt" target="_blank" rel="external">charCodeAt()</a> 方法会返回一个 0 到 65535 整数，表示字符的 UTF-16编码。0 到 65535 对应 Unicode 的 0号平面，在这个范围内，UTF-16与Unicode是一致的。</p>
+<p>根据定义我们可以判断，charCodeAt()方法也只能处理双字节，如果超过双字节，那么会被识别为两个字，通过函数签名的索引分别得到两个字符对应的Unicode(UTF-16 0号平面)。</p>
+<p>我们以特殊字符’𐌎’为例，’𐌎’的Unicode为U+1030e</p>
+<p>根据上面的公式，我们可以计算’𐌎’的UTF-16编码为<br><figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">H = Math.floor((<span class="number">0x1030e</span>-<span class="number">0x10000</span>) / <span class="number">0x400</span>)+<span class="number">0xD800</span> = <span class="number">0xd800</span> //前导代理</span><br><span class="line">L = (<span class="number">0x1030e</span> - <span class="number">0x10000</span>) % <span class="number">0x400</span> + <span class="number">0xDC00</span> = <span class="number">0xdf0e</span> //后尾代理</span><br></pre></td></tr></table></figure></p>
+<p>如果我们对’𐌎’执行charCodeAt()方法，结果如下：</p>
+<figure class="highlight xl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'𐌎'</span>.<span class="function"><span class="title">charCodeAt</span>(0).toString(16) // -&gt;</span><span class="number">0</span>xd800</span><br><span class="line"><span class="string">'𐌎'</span>.<span class="function"><span class="title">charCodeAt</span>(1).toString(16) // -&gt;</span> <span class="number">0</span>xdf0e</span><br></pre></td></tr></table></figure>
+<p>charCodeAt()把’𐌎’识别为两个字符了</p>
+<p><strong>String.fromCodePoint 和 String.prototype.codePointAt</strong></p>
+<p><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/fromCodePoint" target="_blank" rel="external">String.fromCodePoint</a>是ES6新提供的方法，弥补String.fromCharCode不能识别0xFFFF的问题，识别大于0xFFFF字符</p>
+<figure class="highlight xl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">S<span class="function"><span class="title">tring</span>.fromCodePoint(0x1030e) // -&gt;</span> <span class="string">"𐌎"</span></span><br><span class="line">S<span class="function"><span class="title">tring</span>.fromCharCode(0x1030e) // -&gt;</span><span class="string">" ̎"</span></span><br><span class="line">S<span class="function"><span class="title">tring</span>.fromCharCode(0x030e) // -&gt;</span><span class="string">" ̎"</span></span><br></pre></td></tr></table></figure>
+<p><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/codePointAt" target="_blank" rel="external">codePointAt()</a>会返回一个字符的Unicode，无论是双字节字符（0号平面）还是由两个双字节组成的字符（辅助平面）。可以看到codePointAt()是用来弥补charCodeAt()不能识别两个双字节组成的字符，而只能返回该字符的前导代理的问题，</p>
+<figure class="highlight xl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 两个双字节组成的字符</span></span><br><span class="line"><span class="string">'𐌎'</span>.<span class="function"><span class="title">codePointAt</span>().toString(16) // -&gt;</span> <span class="number">0</span>x1030e</span><br><span class="line"><span class="string">'𐌎'</span>.<span class="function"><span class="title">charCodeAt</span>(0).toString(16) // -&gt;</span><span class="number">0</span>xd800</span><br><span class="line"><span class="string">'𐌎'</span>.<span class="function"><span class="title">charCodeAt</span>(1).toString(16) // -&gt;</span> <span class="number">0</span>xdf0e</span><br><span class="line"></span><br><span class="line"><span class="comment">//双字节字符</span></span><br><span class="line"><span class="string">'尚'</span>.<span class="function"><span class="title">codePointAt</span>().toString(16) // -&gt;</span> <span class="number">0</span>x5c1a</span><br><span class="line"><span class="string">'尚'</span>.<span class="function"><span class="title">charCodeAt</span>().toString(16) // -&gt;</span> <span class="number">0</span>x5c1a</span><br></pre></td></tr></table></figure>
+<p>注意：使用codePorintAt()处理单个字符没有问题，如</p>
+<figure class="highlight xl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'𐌎'</span>.<span class="function"><span class="title">codePointAt</span>().toString(16) // -&gt;</span> <span class="number">0</span>x1030e</span><br></pre></td></tr></table></figure>
+<p>但是如果是处理字符串，并且字符串中含有两个双字节组成的字符，那么可能会出现bug<br><figure class="highlight erlang-repl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">//<span class="string">'𐌎尚'</span>两个字符组成了一个字符串，其中第一个字符为<span class="string">'𐌎'</span>，是一个由两个双字节组成的字符。第二个字符为<span class="string">'尚'</span>，是一个双字节字符</span><br><span class="line"></span><br><span class="line">//codePointAt(<span class="number">0</span>)正确取到了<span class="string">'𐌎'</span>的Unicode</span><br><span class="line"><span class="string">'𐌎尚'</span>.codePointAt(<span class="number">0</span>).toString(<span class="number">16</span>) // -&gt; <span class="number">0</span>x1030e</span><br><span class="line"></span><br><span class="line">//codePointAt(<span class="number">1</span>)按照我们的想法，应该取得<span class="string">'尚'</span>的Unicode，但实际取的是<span class="string">'𐌎'</span>第二个双字节字符的Unicode，<span class="string">'𐌎'</span>.charCodeAt(<span class="number">1</span>).toString(<span class="number">16</span>) // -&gt; <span class="number">0</span>xdf0e</span><br><span class="line"><span class="string">'𐌎尚'</span>.codePointAt(<span class="number">1</span>).toString(<span class="number">16</span>) // -&gt; <span class="number">0</span>xdf0e</span><br><span class="line"></span><br><span class="line">//codePointAt(<span class="number">2</span>)取得<span class="string">'尚'</span>的Unicode</span><br><span class="line"><span class="string">'𐌎尚'</span>.codePointAt(<span class="number">2</span>).toString(<span class="number">16</span>) // -&gt; <span class="number">0</span>x5c1a</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">//<span class="string">'尚德'</span>两个字符组成了一个字符串，其中第一个字符<span class="string">'尚'</span>和第二个<span class="string">'德'</span>都是双字节字符</span><br><span class="line">//<span class="string">'尚'</span>.codePointAt().toString(<span class="number">16</span>) = <span class="number">0</span>x5c1a</span><br><span class="line"><span class="string">'尚德'</span>.codePointAt(<span class="number">0</span>).toString(<span class="number">16</span>) // -&gt; <span class="number">0</span>x5c1a</span><br><span class="line">//<span class="string">'德'</span>.codePointAt().toString(<span class="number">16</span>) = <span class="number">0</span>x5fb7</span><br><span class="line"><span class="string">'尚德'</span>.codePointAt(<span class="number">1</span>).toString(<span class="number">16</span>) // -&gt; <span class="number">0</span>x5fb7</span><br></pre></td></tr></table></figure></p>
+<h3 id="4-3-其他"><a href="#4-3-其他" class="headerlink" title="4.3 其他"></a>4.3 其他</h3><h4 id="4-3-1-正则表达式"><a href="#4-3-1-正则表达式" class="headerlink" title="4.3.1 正则表达式"></a>4.3.1 正则表达式</h4><p>正则表达式中使用Unicode，必须使用\u开头，后面跟四位16进制的Unicode码。</p>
+<p><strong>判断是否是中文</strong></p>
+<figure class="highlight taggerscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">// 判断是否是中文</span><br><span class="line">// 标准CJK中文范围：<span class="symbol">\u</span>3400-<span class="symbol">\u</span>4DB5,<span class="symbol">\u</span>4E00-<span class="symbol">\u</span>9FA5,<span class="symbol">\u</span>9FA6-<span class="symbol">\u</span>9FBB,<span class="symbol">\u</span>F900-<span class="symbol">\u</span>FA2D,<span class="symbol">\u</span>FA30-<span class="symbol">\u</span>FA6A,<span class="symbol">\u</span>FA70-<span class="symbol">\u</span>FAD9，除了<span class="symbol">\u</span>4E00-<span class="symbol">\u</span>9FA5都是非常用中文，参考http://www.unicode.org/Public/5.0.0/ucd/Unihan.html</span><br><span class="line">// 一般情况下，都会使用u4E00-u9FA5来判断</span><br><span class="line">/[<span class="symbol">\u</span>4E00-<span class="symbol">\u</span>9FA5]/.test('尚')</span><br><span class="line"></span><br><span class="line">// 也可以扩大范围，把CJK兼容象形文字包括进去</span><br><span class="line">/[<span class="symbol">\u</span>4E00-<span class="symbol">\u</span>9FA5<span class="symbol">\u</span>F900-<span class="symbol">\u</span>FA2D]/.test('尚')</span><br></pre></td></tr></table></figure>
+<p><strong>u 修饰符</strong><br>ES6中添加了u修饰符，与 codePointAt 和 fromCodePoin 类似，都是用来处理由两个双字节组成的字符。如我们上面的例子，’𐌎’是由\ud800和\udf0e组成的，如果在传统的ES5中，并不能把’𐌎’识别为一个字符，而会识别成两个字符。这可能会造成下面的错误</p>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 这是不对的\ud800\udf0e应该表示的是'𐌎'，是一个字符</span></span><br><span class="line"><span class="comment">// 但是ES5中会把其识别成两个字符</span></span><br><span class="line"><span class="regexp">/\ud800/</span>.test(<span class="string">'\ud800\udf0e'</span>) <span class="comment">// -&gt; true</span></span><br></pre></td></tr></table></figure>
+<p>在ES6中通过u修饰符，可以在正则表示中把其识别为一个字符</p>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="regexp">/\ud800/u</span>.test(<span class="string">'\ud800\udf0e'</span>) <span class="comment">// -&gt; false</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// '𐌎'.codePointAt().toString(16) = 0x1030e</span></span><br><span class="line"><span class="regexp">/\u&#123;1030e&#125;/u</span>.test(<span class="string">'𐌎'</span>) <span class="comment">// -&gt; true</span></span><br></pre></td></tr></table></figure>
+<h4 id="4-3-2-URL"><a href="#4-3-2-URL" class="headerlink" title="4.3.2 URL"></a>4.3.2 URL</h4><p>URL 作为访问地址或者method为get类型的异步请求参数，如果出现中文的话，都需要进行转码。原因我们在上面提过，根据 URI 的规范，查询参数必须是UTF-8编码，而javascript是基于Unicode编码的UCS-2来实现的。浏览器为我们提供了这样一个方法，能够把中文转换成UTF-8，只不过每个字节之间用%分割。</p>
+<p>当URL作为访问地址时，浏览器会自动帮我们进行转义，例如我们在浏览器输入框中直接输入<code>https://zh.wikipedia.org/wiki/通用字符集</code>，我们可以看到浏览器会直接访问对应页面，并且浏览器中的地址不会发生改变，打开开发者工具，从Network中发现，实际发出的请求为<code>https://zh.wikipedia.org/wiki/%E9%80%9A%E7%94%A8%E5%AD%97%E7%AC%A6%E9%9B%86</code>。</p>
+<figure class="highlight erlang-repl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">// 对<span class="string">'通用字符集'</span>这五个汉字进行UTF-<span class="number">8</span>编码求职</span><br><span class="line"><span class="string">'通'</span> -&gt; E9809A</span><br><span class="line"><span class="string">'用'</span> -&gt; E794A8</span><br><span class="line"><span class="string">'字'</span> -&gt; E5AD97</span><br><span class="line"><span class="string">'符'</span> -&gt; E7ACA6</span><br><span class="line"><span class="string">'集'</span> -&gt; E99B86</span><br></pre></td></tr></table></figure>
+<p>当method为get的异步请求的参数中带有中文时，需要手动调用encodeURIComponent方法把中文编码为UTF-8。</p>
+<p>jQuery 的代码中在处理ajax参数的时候，会自动把参数做encodeURIComponent处理</p>
+<figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">jQuery.param = <span class="function"><span class="keyword">function</span><span class="params">( a, traditional )</span></span> &#123;</span><br><span class="line">	var prefix,</span><br><span class="line">		s = [],</span><br><span class="line">		add = <span class="function"><span class="keyword">function</span><span class="params">( key, value )</span></span> &#123;</span><br><span class="line"></span><br><span class="line">			// <span class="keyword">If</span> <span class="keyword">value</span> is a <span class="function"><span class="keyword">function</span></span>, invoke it and <span class="keyword">return</span> its <span class="keyword">value</span></span><br><span class="line">			<span class="keyword">value</span> = jQuery.isFunction( <span class="keyword">value</span> ) ? <span class="keyword">value</span>() : ( <span class="keyword">value</span> == null ? <span class="string">""</span> : <span class="keyword">value</span> );</span><br><span class="line">			s[ s.length ] = encodeURIComponent( key ) + <span class="string">"="</span> + encodeURIComponent( <span class="keyword">value</span> );</span><br><span class="line">		&#125;;</span><br><span class="line">...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><p>1、<a href="https://zh.wikipedia.org/wiki/%E9%80%9A%E7%94%A8%E5%AD%97%E7%AC%A6%E9%9B%86" target="_blank" rel="external">通用字符集</a></p>
+<p>2、<a href="https://zh.wikipedia.org/wiki/Unicode" target="_blank" rel="external">Unicode</a></p>
+<p>3、<a href="https://zh.wikipedia.org/wiki/UTF-16" target="_blank" rel="external">UTF-16</a></p>
+<p>4、<a href="https://zh.wikipedia.org/wiki/%E5%AD%97%E8%8A%82%E5%BA%8F" target="_blank" rel="external">字节序</a></p>
+<p>5、<a href="http://ju.outofmemory.cn/entry/53571" target="_blank" rel="external">关于unicode汉字范围正则的写法</a></p>
+<p>6、<a href="http://www.ruanyifeng.com/blog/2010/02/url_encoding.html" target="_blank" rel="external">关于URL编码</a></p>
+<p>7、<a href="http://www.ruanyifeng.com/blog/2014/12/unicode.html" target="_blank" rel="external">Unicode与JavaScript详解</a></p>
+<p>8、<a href="http://www.ruanyifeng.com/blog/2007/10/ascii_unicode_and_utf-8.html?20151227141854" target="_blank" rel="external">字符编码笔记：ASCII，Unicode和UTF-8</a></p>
+
+        
+        </div>
+        <footer class="article-footer">
+            <div class="share-container">
+
+
+
+</div>
+
+    <a data-url="http://yoursite.com/2017/08/25/编码到底怎么回事/" data-id="cj6repbio000nnlfy7402h8xs" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+<script>
+    (function ($) {
+        // Prevent duplicate binding
+        if (typeof(__SHARE_BUTTON_BINDED__) === 'undefined' || !__SHARE_BUTTON_BINDED__) {
+            __SHARE_BUTTON_BINDED__ = true;
+        } else {
+            return;
+        }
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="fa fa-twitter article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="fa fa-facebook article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="fa fa-pinterest article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="fa fa-google article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+            
+    
+        <a href="http://yoursite.com/2017/08/25/编码到底怎么回事/#comments" class="article-comment-link disqus-comment-count" data-disqus-url="http://yoursite.com/2017/08/25/编码到底怎么回事/">评论</a>
+    
+
+        </footer>
+    </div>
+    
+</article>
+
+
+
     <article id="post-ES7和ES8特性" class="article article-type-post" itemscope itemprop="blogPost">
     <div class="article-inner">
         
@@ -368,7 +706,7 @@
 
 </div>
 
-    <a data-url="http://yoursite.com/2017/02/09/ES7和ES8特性/" data-id="ciyxv7p4u0001zbfy1c6ygswr" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+    <a data-url="http://yoursite.com/2017/02/09/ES7和ES8特性/" data-id="cj6repbhq0003nlfylt7fxykn" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -525,7 +863,7 @@
 
 </div>
 
-    <a data-url="http://yoursite.com/2016/12/07/JavaScript-2016-调查-—-状态管理工具/" data-id="ciyxv7p5b0008zbfyskhu9vwr" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+    <a data-url="http://yoursite.com/2016/12/07/JavaScript-2016-调查-—-状态管理工具/" data-id="cj6repbib000dnlfy8dfmdc3g" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -684,7 +1022,7 @@
 
 </div>
 
-    <a data-url="http://yoursite.com/2016/12/06/JavaScript-2016-调查-—-前端框架/" data-id="ciyxv7p5e0009zbfyhal59y8d" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+    <a data-url="http://yoursite.com/2016/12/06/JavaScript-2016-调查-—-前端框架/" data-id="cj6repbhw0006nlfyqa4vspa4" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -838,7 +1176,7 @@
 
 </div>
 
-    <a data-url="http://yoursite.com/2016/12/02/JavaScript-2016-调查-—-JavaScript语言规范/" data-id="ciyxv7p570005zbfyg50h0ghh" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+    <a data-url="http://yoursite.com/2016/12/02/JavaScript-2016-调查-—-JavaScript语言规范/" data-id="cj6repbi20009nlfy751o27gt" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -985,7 +1323,7 @@
 
 </div>
 
-    <a data-url="http://yoursite.com/2016/12/02/JavaScript-2016-调查-——-介绍/" data-id="ciyxv7p6m001nzbfyazrauzo5" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+    <a data-url="http://yoursite.com/2016/12/02/JavaScript-2016-调查-——-介绍/" data-id="cj6repbi9000cnlfyj8dh6x2y" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -1151,7 +1489,7 @@
 
 </div>
 
-    <a data-url="http://yoursite.com/2016/09/30/Git-Flow-vs-Github-Flow/" data-id="ciyxv7p550004zbfyakp9dtin" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+    <a data-url="http://yoursite.com/2016/09/30/Git-Flow-vs-Github-Flow/" data-id="cj6repbhm0002nlfy25e9op7a" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -1277,7 +1615,7 @@
 
 </div>
 
-    <a data-url="http://yoursite.com/2016/04/12/假如javascript有了一个标准库（译文）/" data-id="ciyxv7p6v001vzbfyo3dd0puf" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+    <a data-url="http://yoursite.com/2016/04/12/假如javascript有了一个标准库（译文）/" data-id="cj6repbie000gnlfyu2n1rbn7" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -1424,7 +1762,7 @@
 
 </div>
 
-    <a data-url="http://yoursite.com/2016/02/16/IE9浏览器单个CSS文件样式数量限制的bug/" data-id="ciyxv7p590007zbfyz7u05oju" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+    <a data-url="http://yoursite.com/2016/02/16/IE9浏览器单个CSS文件样式数量限制的bug/" data-id="cj6repbhu0005nlfyvefcjhqs" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -1592,7 +1930,7 @@
 
 </div>
 
-    <a data-url="http://yoursite.com/2016/01/28/Github中的badge/" data-id="ciyxv7p500002zbfyj66gobna" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+    <a data-url="http://yoursite.com/2016/01/28/Github中的badge/" data-id="cj6repbhz0008nlfyghwsdlsw" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -1670,229 +2008,6 @@
 
 
 
-    <article id="post-vows-istanbul-coveralls-整合" class="article article-type-post" itemscope itemprop="blogPost">
-    <div class="article-inner">
-        
-        
-        
-            <header class="article-header">
-                
-    
-        <h1 itemprop="name">
-            <a class="article-title" href="/2015/12/11/vows-istanbul-coveralls-整合/">vows istanbul coveralls 整合</a>
-        </h1>
-    
-
-                <div class="article-meta">
-                    
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/2015/12/11/vows-istanbul-coveralls-整合/">
-            <time datetime="2015-12-11T09:50:14.000Z" itemprop="datePublished">2015-12-11</time>
-        </a>
-    </div>
-
-
-                    
-                    
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/badge/">badge</a>, <a class="tag-link" href="/tags/coverage/">coverage</a>, <a class="tag-link" href="/tags/coveralls/">coveralls</a>, <a class="tag-link" href="/tags/github/">github</a>, <a class="tag-link" href="/tags/istanbul/">istanbul</a>, <a class="tag-link" href="/tags/node/">node</a>, <a class="tag-link" href="/tags/test/">test</a>, <a class="tag-link" href="/tags/vows/">vows</a>
-    </div>
-
-                </div>
-            </header>
-        
-        <div class="article-entry" itemprop="articleBody">
-        
-            
-            <p>经常逛github，会发现好多repo在readme都会有badges，看起来逼格满满。本文将会介绍其中一种表示代码覆盖率的badge—coveralls是如何生成的。</p>
-<p><img src="/images/QQ截图20151211151018.png" alt=""></p>
-<p>上图中显示了coveralls的样式，98%表示了代码覆盖率达到98%，绿色背景表示当前覆盖率良好。</p>
-<h1 id="概念介绍"><a href="#概念介绍" class="headerlink" title="概念介绍"></a>概念介绍</h1><p>首先要介绍几个相关概念;<br>1、Vows，bdd测试框架<br>2、istanbul，代码覆盖率测试<br>3、coveralls，代码覆盖率管理</p>
-<h2 id="Vows"><a href="#Vows" class="headerlink" title="Vows"></a>Vows</h2><p>Vows是运行在node环境下的bdd(behavior driven development)测试框架。</p>
-<p>主要用来测试异步行为，能够保证执行的合理顺序。</p>
-<p><a href="http://vowsjs.org/" title="vowsjs.org" target="_blank" rel="external">http://vowsjs.org/</a></p>
-<p><a href="http://yanyu0517.github.io/2015/12/03/Vows-node中的bdd框架/" target="_blank" rel="external">http://yanyu0517.github.io/2015/12/03/Vows-node中的bdd框架/</a></p>
-<h2 id="istanbul"><a href="#istanbul" class="headerlink" title="istanbul"></a>istanbul</h2><p>istanbul是一个由js开发的代码覆盖率检查工具</p>
-<p>支持html、LCOV、Cobertura等多种格式</p>
-<p>支持命令行</p>
-<p><a href="https://github.com/gotwarlost/istanbul" target="_blank" rel="external">https://github.com/gotwarlost/istanbul</a></p>
-<h2 id="coveralls"><a href="#coveralls" class="headerlink" title="coveralls"></a>coveralls</h2><p>能够帮助你计算你GITHUB和BITBUCKET中代码仓库的代码覆盖率</p>
-<ul>
-<li>针对单个文件计算代码覆盖率</li>
-<li>定位到代码中的某一行</li>
-<li>整个账户的概况</li>
-<li>记录所有提交的代码覆盖率</li>
-<li>提醒功能</li>
-<li>在任何ci下都可以运行</li>
-</ul>
-<p><a href="https://coveralls.io/" target="_blank" rel="external">https://coveralls.io/</a></p>
-<p>coveralls提供了多种运行环境，其中node-coveralls是运行在node环境中的</p>
-<p>支持的ci服务：travis-ci, codeship, circleci, jenkins，并且支持lcov代码覆盖率报告</p>
-<p><a href="https://github.com/nickmerwin/node-coveralls" target="_blank" rel="external">https://github.com/nickmerwin/node-coveralls</a></p>
-<h1 id="工作流"><a href="#工作流" class="headerlink" title="工作流"></a>工作流</h1><p>通过上面的介绍，可以简单了解到整个工作流是如何运作的：</p>
-<p><img src="/images/QQ截图20151211154136.png" alt=""></p>
-<p>1、通过vows编写测试代码，也可以使用其他测试框架，如mocha,nodeunit等</p>
-<p>2、istanbul计算测试代码的代码覆盖率，并输出lcov格式的数据报告./coverage/lcov.info</p>
-<p>3、coveralls管理你的代码仓储，并通过ci介入istanbul输出的lcov，生成代码覆盖率分析</p>
-<h1 id="配置及整合"><a href="#配置及整合" class="headerlink" title="配置及整合"></a>配置及整合</h1><h2 id="vows配置"><a href="#vows配置" class="headerlink" title="vows配置"></a>vows配置</h2><p>vows配置没有什么特殊的要求，需要注意的一点是，vows测试结束后，一定要process exit，istanbul是监听process退出后，给出代码覆盖率，如果process一直不退出，是得不到代码覆盖率报告的。</p>
-<p>我在最开始整合istanbul和vows的时候，就遇到了这样的问题：</p>
-<p>我的测试代码中需要启动一个http server，而在vows测试结束后，并没有关闭这个server，istanbul一直无法生成代码覆盖率。</p>
-<p>此处还有一个坑爹点需要注意，vows的文档中，并没有关于如何监听case执行完毕的api，作为一个专注于异步测试的测试框架，这实在是不应该。</p>
-<p>最后我耗费了一天的时间，翻了源代码还有之前的issue，发现了teardown这个方法，是case执行完毕的回调函数，在自己的batch中实现teardown关闭server。</p>
-<h2 id="istanbul-1"><a href="#istanbul-1" class="headerlink" title="istanbul"></a>istanbul</h2><p>全局安装istanbul</p>
-<pre><code>npm install -g istanbul
-</code></pre><p>整合istanbule和vows，只要执行下面的命令即可</p>
-<pre><code>istanbul cover -v --print both -- vows --spec my-test.js
-</code></pre><p>注意，上面命令只能在linux下执行，在windows下执行会报错的，这又是一个坑爹点</p>
-<p>在windows下执行需要执行下面的命令</p>
-<pre><code>istanbul cover -v --print both -- ./node_modules/vows/bin/vows --spec test/biz-mock-test.js
-</code></pre><p>github issue：<a href="https://github.com/gotwarlost/istanbul/issues/13" target="_blank" rel="external">https://github.com/gotwarlost/istanbul/issues/13</a></p>
-<p>命令成功执行后，首先会在控制台中给出测试脚本的执行结果，随后会给出代码覆盖率，并生成代码覆盖率报告</p>
-<p>控制台中输出的代码覆盖率</p>
-<p><img src="/images/QQ截图20151211160452.png" alt=""></p>
-<p>代码覆盖报告，输出在coverage目录下</p>
-<pre><code>/coverage
-    -lcov.info //lcov数据
-    -coverage.json //覆盖率json数据
-    -lcov-report/*html //lcov html 目录
-</code></pre><p>lcov-report/*html输出的代码覆盖率</p>
-<p>整合到</p>
-<p><img src="/images/QQ截图20151211161018.png" alt=""></p>
-<h2 id="coveralls-1"><a href="#coveralls-1" class="headerlink" title="coveralls"></a>coveralls</h2><p>coveralls分为两个部分：</p>
-<ul>
-<li>网站管理</li>
-<li>接入代码覆盖率数据</li>
-</ul>
-<h3 id="网站管理"><a href="#网站管理" class="headerlink" title="网站管理"></a>网站管理</h3><p>访问<a href="https://coveralls.io/" target="_blank" rel="external">https://coveralls.io/</a></p>
-<p>直接使用GITHUB和BITBUCKET登录，授权coveralls读取账户中的repo</p>
-<p>添加repo到coveralls</p>
-<p>在coveralls网站中添加了repo中，因为没有接入代码覆盖率数据，所以仅能看到添加了的repo，而无法看到代码覆盖率</p>
-<p><img src="/images/QQ截图20151211163307.png" alt=""></p>
-<h3 id="接入代码覆盖率数据"><a href="#接入代码覆盖率数据" class="headerlink" title="接入代码覆盖率数据"></a>接入代码覆盖率数据</h3><p>如前面所述，代码覆盖率是由istanbul生成的，标准的lcov格式，放在/coverage/lcov.info中</p>
-<p>通过node-coveralls，在ci中自动读取lcov数据，并上传到coveralls网站中</p>
-<p>step1：</p>
-<p>安装node-coveralls</p>
-<pre><code>npm install coveralls --save-dev
-</code></pre><p>step2：</p>
-<p>把vows和istanbul都添加到travis ci中</p>
-<p><strong>修改package.json</strong></p>
-<p>添加测试脚本</p>
-<pre><code>&quot;scripts&quot;: {
-    &quot;test&quot;: &quot;istanbul cover -v --print both -- vows --spec test/biz-mock-test.js&quot;
-  },
-</code></pre><p><strong>修改.travis.yml</strong></p>
-<p>让ci自动执行测试脚本</p>
-<pre><code>before_script:
-  - &quot;npm install -g istanbul&quot;
-script:
-  - &quot;npm test&quot;
-</code></pre><p>step3：</p>
-<p>node-coveralls接入lcov数据</p>
-<p><strong>修改.travis.yml</strong></p>
-<pre><code>after_script:
-      - cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js
-</code></pre><h3 id="coveralls查看代码覆盖率"><a href="#coveralls查看代码覆盖率" class="headerlink" title="coveralls查看代码覆盖率"></a>coveralls查看代码覆盖率</h3><p>提交上面的配置后，travis ci会自动build，运行测试代码，生成代码覆盖率报告，并上传的到coveralls网站。在coveralls即可查看repo的代码覆盖率。</p>
-<p><img src="/images/QQ截图20151211164736.png" alt=""></p>
-<h3 id="生成coveralls覆盖率badge"><a href="#生成coveralls覆盖率badge" class="headerlink" title="生成coveralls覆盖率badge"></a>生成coveralls覆盖率badge</h3><p>coveralls会自动为每一个接入了代码覆盖率数据的repo，生成一个badge，并提供了多种文本格式的链接</p>
-<ul>
-<li>MARKDOWN</li>
-<li>TEXTILE</li>
-<li>RDOC</li>
-<li>HTML</li>
-<li>RST</li>
-</ul>
-<p><img src="/images/QQ截图20151211165109.png" alt=""></p>
-<p>在github的readme中，添加markdown的链接，即可生成覆盖率badge</p>
-
-        
-        </div>
-        <footer class="article-footer">
-            <div class="share-container">
-
-
-
-</div>
-
-    <a data-url="http://yoursite.com/2015/12/11/vows-istanbul-coveralls-整合/" data-id="ciyxv7p6n001ozbfyauqs946q" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
-<script>
-    (function ($) {
-        // Prevent duplicate binding
-        if (typeof(__SHARE_BUTTON_BINDED__) === 'undefined' || !__SHARE_BUTTON_BINDED__) {
-            __SHARE_BUTTON_BINDED__ = true;
-        } else {
-            return;
-        }
-        $('body').on('click', function() {
-            $('.article-share-box.on').removeClass('on');
-        }).on('click', '.article-share-link', function(e) {
-            e.stopPropagation();
-
-            var $this = $(this),
-                url = $this.attr('data-url'),
-                encodedUrl = encodeURIComponent(url),
-                id = 'article-share-box-' + $this.attr('data-id'),
-                offset = $this.offset(),
-                box;
-
-            if ($('#' + id).length) {
-                box = $('#' + id);
-
-                if (box.hasClass('on')){
-                    box.removeClass('on');
-                    return;
-                }
-            } else {
-                var html = [
-                    '<div id="' + id + '" class="article-share-box">',
-                        '<input class="article-share-input" value="' + url + '">',
-                        '<div class="article-share-links">',
-                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="fa fa-twitter article-share-twitter" target="_blank" title="Twitter"></a>',
-                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="fa fa-facebook article-share-facebook" target="_blank" title="Facebook"></a>',
-                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="fa fa-pinterest article-share-pinterest" target="_blank" title="Pinterest"></a>',
-                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="fa fa-google article-share-google" target="_blank" title="Google+"></a>',
-                        '</div>',
-                    '</div>'
-                ].join('');
-
-              box = $(html);
-
-              $('body').append(box);
-            }
-
-            $('.article-share-box.on').hide();
-
-            box.css({
-                top: offset.top + 25,
-                left: offset.left
-            }).addClass('on');
-
-        }).on('click', '.article-share-box', function (e) {
-            e.stopPropagation();
-        }).on('click', '.article-share-box-input', function () {
-            $(this).select();
-        }).on('click', '.article-share-box-link', function (e) {
-            e.preventDefault();
-            e.stopPropagation();
-
-            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
-        });
-    })(jQuery);
-</script>
-
-            
-    
-        <a href="http://yoursite.com/2015/12/11/vows-istanbul-coveralls-整合/#comments" class="article-comment-link disqus-comment-count" data-disqus-url="http://yoursite.com/2015/12/11/vows-istanbul-coveralls-整合/">评论</a>
-    
-
-        </footer>
-    </div>
-    
-</article>
-
-
-
     <nav id="page-nav">
         <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">下一页 &raquo;</a>
     </nav>
@@ -1905,6 +2020,25 @@ script:
         <h3 class="widget-title">最新文章</h3>
         <div class="widget">
             <ul id="recent-post" class="">
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2017/08/25/编码到底怎么回事/" class="thumbnail">
+    
+    
+        <span style="background-image:url(https://ww2.sinaimg.cn/large/006tNc79ly1fibkxk7ws4j30rk14q7e7.jpg)" alt="编码到底怎么回事" class="thumbnail-image"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/2017/08/25/编码到底怎么回事/" class="title">编码到底怎么回事</a></p>
+                            <p class="item-date"><time datetime="2017-08-25T04:47:08.000Z" itemprop="datePublished">2017-08-25</time></p>
+                        </div>
+                    </li>
                 
                     <li>
                         
@@ -1982,25 +2116,6 @@ script:
                         </div>
                     </li>
                 
-                    <li>
-                        
-                        <div class="item-thumbnail">
-                            <a href="/2016/12/02/JavaScript-2016-调查-——-介绍/" class="thumbnail">
-    
-    
-        <span style="background-image:url(/images/javascript9.svg)" alt="JavaScript 2016 调查 — 介绍" class="thumbnail-image"></span>
-    
-</a>
-
-                        </div>
-                        
-                        <div class="item-inner">
-                            <p class="item-category"></p>
-                            <p class="item-title"><a href="/2016/12/02/JavaScript-2016-调查-——-介绍/" class="title">JavaScript 2016 调查 — 介绍</a></p>
-                            <p class="item-date"><time datetime="2016-12-02T07:27:03.000Z" itemprop="datePublished">2016-12-02</time></p>
-                        </div>
-                    </li>
-                
             </ul>
         </div>
     </div>
@@ -2012,7 +2127,7 @@ script:
     <div class="widget-wrap">
         <h3 class="widget-title">归档</h3>
         <div class="widget">
-            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">二月 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">十二月 2016</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">九月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">四月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">二月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">一月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">十二月 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">十一月 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">十月 2015</a><span class="archive-list-count">1</span></li></ul>
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">八月 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">二月 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">十二月 2016</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">九月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">四月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">二月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">一月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">十二月 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">十一月 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">十月 2015</a><span class="archive-list-count">1</span></li></ul>
         </div>
     </div>
 
@@ -2021,7 +2136,7 @@ script:
     <div class="widget-wrap">
         <h3 class="widget-title">标签</h3>
         <div class="widget">
-            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Angular/">Angular</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Angular2/">Angular2</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ES6/">ES6</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Github/">Github</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IE浏览器/">IE浏览器</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript-2016/">JavaScript 2016</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/React/">React</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TypeScript/">TypeScript</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Vue/">Vue</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Vue2/">Vue2</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/badge/">badge</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/coverage/">coverage</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/coveralls/">coveralls</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/css/">css</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/es7/">es7</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/es8/">es8</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gitflow/">gitflow</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/">github</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github-flow/">github flow</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gitlab/">gitlab</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/istanbul/">istanbul</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/node/">node</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/test/">test</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vows/">vows</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/兼容性/">兼容性</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/前端框架/">前端框架</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/包管理工具/">包管理工具</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/工作实践/">工作实践</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/测试/">测试</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/语言规范/">语言规范</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/－javascript-node-es6/">－javascript - node - es6</a><span class="tag-list-count">1</span></li></ul>
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Angular/">Angular</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Angular2/">Angular2</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ES6/">ES6</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Github/">Github</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IE浏览器/">IE浏览器</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript-2016/">JavaScript 2016</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/React/">React</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TypeScript/">TypeScript</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Vue/">Vue</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Vue2/">Vue2</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/badge/">badge</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/coverage/">coverage</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/coveralls/">coveralls</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/css/">css</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/es7/">es7</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/es8/">es8</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gitflow/">gitflow</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/">github</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github-flow/">github flow</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gitlab/">gitlab</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/istanbul/">istanbul</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/node/">node</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/test/">test</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vows/">vows</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/兼容性/">兼容性</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/前端框架/">前端框架</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/包管理工具/">包管理工具</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/工作实践/">工作实践</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/测试/">测试</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/语言规范/">语言规范</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/－javascript-node-es6/">－javascript - node - es6</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/－unicode-gbk-utf8-utf16-encoding/">－unicode -gbk -utf8 -utf16 -encoding</a><span class="tag-list-count">1</span></li></ul>
         </div>
     </div>
 
@@ -2030,7 +2145,7 @@ script:
     <div class="widget-wrap">
         <h3 class="widget-title">标签云</h3>
         <div class="widget tagcloud">
-            <a href="/tags/Angular/" style="font-size: 10px;">Angular</a> <a href="/tags/Angular2/" style="font-size: 10px;">Angular2</a> <a href="/tags/ES6/" style="font-size: 10px;">ES6</a> <a href="/tags/Github/" style="font-size: 10px;">Github</a> <a href="/tags/IE浏览器/" style="font-size: 10px;">IE浏览器</a> <a href="/tags/JavaScript-2016/" style="font-size: 20px;">JavaScript 2016</a> <a href="/tags/React/" style="font-size: 10px;">React</a> <a href="/tags/TypeScript/" style="font-size: 10px;">TypeScript</a> <a href="/tags/Vue/" style="font-size: 10px;">Vue</a> <a href="/tags/Vue2/" style="font-size: 10px;">Vue2</a> <a href="/tags/badge/" style="font-size: 10px;">badge</a> <a href="/tags/coverage/" style="font-size: 10px;">coverage</a> <a href="/tags/coveralls/" style="font-size: 10px;">coveralls</a> <a href="/tags/css/" style="font-size: 15px;">css</a> <a href="/tags/es7/" style="font-size: 10px;">es7</a> <a href="/tags/es8/" style="font-size: 10px;">es8</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/gitflow/" style="font-size: 10px;">gitflow</a> <a href="/tags/github/" style="font-size: 15px;">github</a> <a href="/tags/github-flow/" style="font-size: 10px;">github flow</a> <a href="/tags/gitlab/" style="font-size: 10px;">gitlab</a> <a href="/tags/istanbul/" style="font-size: 10px;">istanbul</a> <a href="/tags/js/" style="font-size: 15px;">js</a> <a href="/tags/node/" style="font-size: 15px;">node</a> <a href="/tags/test/" style="font-size: 10px;">test</a> <a href="/tags/vows/" style="font-size: 10px;">vows</a> <a href="/tags/兼容性/" style="font-size: 10px;">兼容性</a> <a href="/tags/前端框架/" style="font-size: 10px;">前端框架</a> <a href="/tags/包管理工具/" style="font-size: 10px;">包管理工具</a> <a href="/tags/工作实践/" style="font-size: 10px;">工作实践</a> <a href="/tags/测试/" style="font-size: 10px;">测试</a> <a href="/tags/语言规范/" style="font-size: 10px;">语言规范</a> <a href="/tags/－javascript-node-es6/" style="font-size: 10px;">－javascript - node - es6</a>
+            <a href="/tags/Angular/" style="font-size: 10px;">Angular</a> <a href="/tags/Angular2/" style="font-size: 10px;">Angular2</a> <a href="/tags/ES6/" style="font-size: 10px;">ES6</a> <a href="/tags/Github/" style="font-size: 10px;">Github</a> <a href="/tags/IE浏览器/" style="font-size: 10px;">IE浏览器</a> <a href="/tags/JavaScript-2016/" style="font-size: 20px;">JavaScript 2016</a> <a href="/tags/React/" style="font-size: 10px;">React</a> <a href="/tags/TypeScript/" style="font-size: 10px;">TypeScript</a> <a href="/tags/Vue/" style="font-size: 10px;">Vue</a> <a href="/tags/Vue2/" style="font-size: 10px;">Vue2</a> <a href="/tags/badge/" style="font-size: 10px;">badge</a> <a href="/tags/coverage/" style="font-size: 10px;">coverage</a> <a href="/tags/coveralls/" style="font-size: 10px;">coveralls</a> <a href="/tags/css/" style="font-size: 15px;">css</a> <a href="/tags/es7/" style="font-size: 10px;">es7</a> <a href="/tags/es8/" style="font-size: 10px;">es8</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/gitflow/" style="font-size: 10px;">gitflow</a> <a href="/tags/github/" style="font-size: 15px;">github</a> <a href="/tags/github-flow/" style="font-size: 10px;">github flow</a> <a href="/tags/gitlab/" style="font-size: 10px;">gitlab</a> <a href="/tags/istanbul/" style="font-size: 10px;">istanbul</a> <a href="/tags/js/" style="font-size: 15px;">js</a> <a href="/tags/node/" style="font-size: 15px;">node</a> <a href="/tags/test/" style="font-size: 10px;">test</a> <a href="/tags/vows/" style="font-size: 10px;">vows</a> <a href="/tags/兼容性/" style="font-size: 10px;">兼容性</a> <a href="/tags/前端框架/" style="font-size: 10px;">前端框架</a> <a href="/tags/包管理工具/" style="font-size: 10px;">包管理工具</a> <a href="/tags/工作实践/" style="font-size: 10px;">工作实践</a> <a href="/tags/测试/" style="font-size: 10px;">测试</a> <a href="/tags/语言规范/" style="font-size: 10px;">语言规范</a> <a href="/tags/－javascript-node-es6/" style="font-size: 10px;">－javascript - node - es6</a> <a href="/tags/－unicode-gbk-utf8-utf16-encoding/" style="font-size: 10px;">－unicode -gbk -utf8 -utf16 -encoding</a>
         </div>
     </div>
 
